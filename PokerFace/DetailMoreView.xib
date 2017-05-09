@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="MoreView" customModule="PokerFace" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="140"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view alpha="0.80000000000000004" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hwf-tw-65M">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="140"/>
+                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NgW-4e-oXO">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="140"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1hd-RB-bkw">
+                            <rect key="frame" x="165.5" y="38" width="44" height="65"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="65" id="9gX-S7-yMe"/>
+                                <constraint firstAttribute="width" constant="44" id="ebm-3c-3FC"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                            <inset key="titleEdgeInsets" minX="-54" minY="50" maxX="0.0" maxY="0.0"/>
+                            <inset key="imageEdgeInsets" minX="-6" minY="-10" maxX="-6" maxY="15"/>
+                            <state key="normal" title="分享" image="share">
+                                <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zu2-ET-0r4">
+                            <rect key="frame" x="291" y="37" width="44" height="65"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="44" id="B00-Mo-Zej"/>
+                                <constraint firstAttribute="height" constant="65" id="rao-2G-UQH"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                            <inset key="titleEdgeInsets" minX="-45" minY="50" maxX="0.0" maxY="0.0"/>
+                            <inset key="imageEdgeInsets" minX="0.0" minY="-10" maxX="0.0" maxY="15"/>
+                            <state key="normal" title="下载" image="download">
+                                <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xHz-6k-oO3">
+                            <rect key="frame" x="40" y="38" width="44" height="65"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="44" id="LIg-ni-dv8"/>
+                                <constraint firstAttribute="height" constant="65" id="XRm-Oc-A4F"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                            <inset key="titleEdgeInsets" minX="-54" minY="50" maxX="0.0" maxY="0.0"/>
+                            <inset key="imageEdgeInsets" minX="-6" minY="-10" maxX="-6" maxY="15"/>
+                            <state key="normal" title="收藏" image="save">
+                                <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstItem="1hd-RB-bkw" firstAttribute="centerY" secondItem="NgW-4e-oXO" secondAttribute="centerY" id="AHZ-Aw-8Pm"/>
+                        <constraint firstItem="xHz-6k-oO3" firstAttribute="leading" secondItem="NgW-4e-oXO" secondAttribute="leading" constant="40" id="ASK-cd-Wkp"/>
+                        <constraint firstAttribute="trailing" secondItem="Zu2-ET-0r4" secondAttribute="trailing" constant="40" id="IT2-Dh-w2M"/>
+                        <constraint firstAttribute="height" constant="140" id="Kcn-wn-qiq"/>
+                        <constraint firstItem="1hd-RB-bkw" firstAttribute="centerX" secondItem="NgW-4e-oXO" secondAttribute="centerX" id="bvv-KI-zf5"/>
+                        <constraint firstItem="xHz-6k-oO3" firstAttribute="centerY" secondItem="NgW-4e-oXO" secondAttribute="centerY" id="tiv-2h-RTh"/>
+                        <constraint firstItem="Zu2-ET-0r4" firstAttribute="centerY" secondItem="NgW-4e-oXO" secondAttribute="centerY" id="uln-0X-att"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="Hwf-tw-65M" secondAttribute="bottom" id="2nY-g6-NFD"/>
+                <constraint firstAttribute="trailing" secondItem="Hwf-tw-65M" secondAttribute="trailing" id="UGI-WT-ETs"/>
+                <constraint firstItem="Hwf-tw-65M" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="WX5-i8-mV8"/>
+                <constraint firstAttribute="bottom" secondItem="NgW-4e-oXO" secondAttribute="bottom" id="ahm-5v-e8c"/>
+                <constraint firstAttribute="trailing" secondItem="NgW-4e-oXO" secondAttribute="trailing" id="bk9-Lm-AJB"/>
+                <constraint firstItem="Hwf-tw-65M" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="jDa-Ri-RtM"/>
+                <constraint firstItem="NgW-4e-oXO" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="sSO-HD-CK3"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="downloadButton" destination="Zu2-ET-0r4" id="oOh-4L-J8g"/>
+                <outlet property="saveButton" destination="xHz-6k-oO3" id="Yt7-r3-jFm"/>
+                <outlet property="shareButton" destination="1hd-RB-bkw" id="dYn-R8-hDJ"/>
+            </connections>
+            <point key="canvasLocation" x="24.5" y="-213"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="download" width="46" height="52"/>
+        <image name="save" width="56" height="52"/>
+        <image name="share" width="52" height="52"/>
+    </resources>
+</document>
