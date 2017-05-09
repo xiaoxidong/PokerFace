@@ -79,8 +79,8 @@
                         <constraints>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="zCy-UE-6Lx" secondAttribute="bottom" id="458-Ap-yKu"/>
                             <constraint firstItem="zCy-UE-6Lx" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="CLK-XA-xQx"/>
-                            <constraint firstItem="zCy-UE-6Lx" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="Onl-0c-cPG"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="ytk-nD-3Cl" secondAttribute="bottom" constant="10" id="P8M-8B-ZOx"/>
+                            <constraint firstItem="zCy-UE-6Lx" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="SU0-So-KHb"/>
                             <constraint firstAttribute="trailing" secondItem="zCy-UE-6Lx" secondAttribute="trailing" id="myN-Hk-CNF"/>
                             <constraint firstItem="ytk-nD-3Cl" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="z0k-fo-P6L"/>
                         </constraints>
@@ -585,7 +585,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="y4r-M3-7ur" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1608.8" y="183.95802098950526"/>
+            <point key="canvasLocation" x="894" y="161"/>
         </scene>
         <!--设置-->
         <scene sceneID="ncz-gF-ihb">
@@ -1341,7 +1341,7 @@
         <image name="upload" width="16" height="18"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="XWT-Lu-2eK"/>
-        <segue reference="Olj-oD-1oi"/>
+        <segue reference="SUK-Va-8CD"/>
+        <segue reference="raU-eV-rqs"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -23,7 +23,6 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
     
     var array = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20"]
     var newArray = ["10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "17"]
-    let yes = true
     
     var selectViewIsOn = false
     let selectView: SelectView = Bundle.main.loadNibNamed("SelectView", owner: self, options: nil)?.first as! SelectView
@@ -37,10 +36,10 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
     let transition = BubbleTransition()
     
     var page = 1
+    var hideHomeStatusBar = false
     
     let permissins: [SPRequestPermissionType] = [.photoLibrary]
     
-    var nema = "xiaodong"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,6 +51,11 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
         //let banner = NotificationBanner(title: "Basic Warning Notification", subtitle: "Custom Warning Color", style: .warning, colors: CustomBannerColors())
         
         //banner.show()
+        
+        self.automaticallyAdjustsScrollViewInsets = false
+        self.extendedLayoutIncludesOpaqueBars = true
+        self.edgesForExtendedLayout = UIRectEdge.all
+        
         
     }
     
@@ -69,51 +73,51 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
     }
     
     
-    /*
+    
      //滑动的时候隐藏导航栏和状态栏
      func scrollViewDidScroll(_ scrollView: UIScrollView) {
      
-     let pan = scrollView.panGestureRecognizer
-     let velocity = pan.velocity(in: scrollView).y
-     if velocity < -5 {
-     
-     self.navigationController?.setNavigationBarHidden(true, animated: true)
-     DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-     self.hideHomeStatusBar = true
-     self.setNeedsStatusBarAppearanceUpdate()
-     }
-     
-     
-     searchButton.frame.origin.y = self.view.bounds.height
-     
-     
-     } else if velocity > 1000 {
-     self.navigationController?.setNavigationBarHidden(false, animated: true)
-     hideHomeStatusBar = false
-     self.setNeedsStatusBarAppearanceUpdate()
-     
-     }
+         let pan = scrollView.panGestureRecognizer
+         let velocity = pan.velocity(in: scrollView).y
+         if velocity < -5 {
+            if homeCollectionView.contentOffset.y > 70 {
+                self.navigationController?.setNavigationBarHidden(true, animated: true)
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                    self.hideHomeStatusBar = true
+                    self.setNeedsStatusBarAppearanceUpdate()
+                }
+            }
+             
+             searchButton.frame.origin.y = self.view.bounds.height
+         
+         
+         } else if velocity > 1000 {
+             self.navigationController?.setNavigationBarHidden(false, animated: true)
+             hideHomeStatusBar = false
+             self.setNeedsStatusBarAppearanceUpdate()
+         
+         }
      
      }
      
      func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-     self.perform(#selector(self.didiEndScroll), with: nil, afterDelay: 2)
+         self.perform(#selector(self.didiEndScroll), with: nil, afterDelay: 2)
      
      }
      
      func didiEndScroll() {
-     NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(didiEndScroll), object: nil)
-     
-     hideHomeStatusBar = false
-     self.setNeedsStatusBarAppearanceUpdate()
-     
-     self.navigationController?.setNavigationBarHidden(false, animated: true)
+         NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(didiEndScroll), object: nil)
+         
+         hideHomeStatusBar = false
+         self.setNeedsStatusBarAppearanceUpdate()
+         
+         self.navigationController?.setNavigationBarHidden(false, animated: true)
      }
      
      override var prefersStatusBarHidden: Bool {
-     return hideHomeStatusBar
+         return hideHomeStatusBar
      }
-     */
+ 
     
     
     
@@ -177,9 +181,10 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
         //列间距,行间距,偏移
         layout.minimumInteritemSpacing = 5
         layout.minimumLineSpacing = 5
-        layout.sectionInset = UIEdgeInsetsMake(5, 0, 5, 0)
+        layout.sectionInset = UIEdgeInsetsMake(6, 0, 0, 0)
         
         homeCollectionView.collectionViewLayout = layout
+        homeCollectionView.contentInset = UIEdgeInsetsMake(64, 0, 0, 0)
         homeCollectionView!.delegate = self
         homeCollectionView!.dataSource = self
     }
