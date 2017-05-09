@@ -40,6 +40,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
     
     let permissins: [SPRequestPermissionType] = [.photoLibrary]
     
+    var nema = "xiaodong"
     
     override func viewDidLoad() {
         super.viewDidLoad()
