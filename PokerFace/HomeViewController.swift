@@ -72,8 +72,6 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
         
     }
     
-    
-    
      //滑动的时候隐藏导航栏和状态栏
      func scrollViewDidScroll(_ scrollView: UIScrollView) {
      

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import WCLShineButton
 
 class DetailViewController: BasicViewController {
     @IBOutlet weak var titleButton: UIButton!
@@ -19,10 +20,16 @@ class DetailViewController: BasicViewController {
     var moreViewIsOn = false
     var isSaved = false
     
+    var saveButton = WCLShineButton()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         layoutLayer()
+        
+        self.automaticallyAdjustsScrollViewInsets = false
+        self.extendedLayoutIncludesOpaqueBars = true
+        self.edgesForExtendedLayout = UIRectEdge.all
         
         titleButton.setTitle("Airbnb", for: UIControlState.normal)
         
@@ -44,7 +51,7 @@ class DetailViewController: BasicViewController {
         let imageHeight = image!.size.height * self.view.bounds.width / image!.size.width
         
         detailScrollView.contentSize = CGSize(width: self.view.bounds.width, height: imageHeight)
-        detailScrollView.setContentOffset(CGPoint(x: 0, y: 65), animated: false)
+        //detailScrollView.setContentOffset(CGPoint(x: 0, y: 65), animated: false)
 
         detailScrollView.scrollsToTop = false
         
@@ -57,8 +64,14 @@ class DetailViewController: BasicViewController {
         imageView.isUserInteractionEnabled = true
         imageView.addGestureRecognizer(imageTap)
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            //self.showOrHideNavigationAndStatusBar()
+        let imageDoubleTap = UITapGestureRecognizer(target: self, action: #selector(self.imageDoubleTap))
+        imageDoubleTap.numberOfTapsRequired = 2
+        imageView.addGestureRecognizer(imageDoubleTap)
+        
+        imageTap.require(toFail: imageDoubleTap)
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            self.showOrHideNavigationAndStatusBar()
         }
         
 
@@ -71,14 +84,15 @@ class DetailViewController: BasicViewController {
         moreView.layer.shadowColor = UIColor.black.cgColor
         moreView.layer.shadowOffset = CGSize(width: 0, height: -2)
         moreView.layer.shadowOpacity = 0.1
+        moreView.layer.opacity = 0
         
         if isSaved {
-            moreView.saveButton.setImage(UIImage(named: "saved"), for: UIControlState.normal)
             
         } else {
-            moreView.saveButton.setImage(UIImage(named: "save"), for: UIControlState.normal)
             
         }
+
+        moreView.baseView.frame.origin.y += 140
         
         //分类点击事件
         moreView.saveButton.addTarget(self, action: #selector(self.saveButtonDidTouch), for: UIControlEvents.touchUpInside)
@@ -87,7 +101,7 @@ class DetailViewController: BasicViewController {
         
         //点击其他位置的时候也收起下拉
         let windowGesture = UITapGestureRecognizer(target: self, action: #selector(self.showOrHideMoreView))
-        moreView.addGestureRecognizer(windowGesture)
+        moreView.bgView.addGestureRecognizer(windowGesture)
     }
     
     //下拉显示和隐藏
@@ -95,8 +109,40 @@ class DetailViewController: BasicViewController {
         if !moreViewIsOn {
             UIApplication.shared.keyWindow?.addSubview(moreView)
             
+            var param1 = WCLShineParams()
+            param1.bigShineColor = UIColor(rgb: (153,152,38))
+            param1.smallShineColor = UIColor(rgb: (102,102,102))
+            
+            let x = moreView.inView.frame.origin.x + 2
+            let y = moreView.inView.frame.origin.y + self.view.bounds.height - 140 + 140
+            
+            let width = moreView.inView.frame.size.width
+            let height = moreView.inView.frame.size.width
+            saveButton = WCLShineButton(frame: .init(x: x, y: y, width: width, height: height), params: param1)
+            saveButton.isSelected = false
+            saveButton.fillColor = UIColor.red
+            saveButton.color = UIColor.black
+            saveButton.addTarget(self, action: #selector(self.saveButtonDidTouch), for: .touchUpInside)
+            UIApplication.shared.keyWindow?.addSubview(saveButton)
+            
+            //做一个出现的动画
+            UIView.animate(withDuration: 0.35, delay: 0, options: UIViewAnimationOptions.curveEaseInOut, animations: {
+                self.moreView.layer.opacity = 1
+                self.moreView.baseView.frame.origin.y -= 140
+                self.saveButton.frame.origin.y = self.moreView.inView.frame.origin.y + self.view.bounds.height - 140
+            }, completion: nil)
+            
         } else {
-            moreView.removeFromSuperview()
+            //做一个消失的动画
+            UIView.animate(withDuration: 0.35, delay: 0, options: UIViewAnimationOptions.curveEaseInOut, animations: { 
+                self.moreView.layer.opacity = 0
+                self.moreView.baseView.frame.origin.y += 140
+                self.saveButton.frame.origin.y = self.moreView.inView.frame.origin.y + self.view.bounds.height
+            }, completion: { (done) in
+                self.saveButton.removeFromSuperview()
+                self.moreView.removeFromSuperview()
+            })
+            
         }
         
         moreViewIsOn = !moreViewIsOn
@@ -104,12 +150,9 @@ class DetailViewController: BasicViewController {
     
     //收藏事件
     func saveButtonDidTouch() {
-        if !isSaved {
-            moreView.saveButton.setImage(UIImage(named: "saved"), for: UIControlState.normal)
-
-        } else {
-            moreView.saveButton.setImage(UIImage(named: "save"), for: UIControlState.normal)
-
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            self.showOrHideMoreView()
+            
         }
         
         isSaved = !isSaved
@@ -147,6 +190,11 @@ class DetailViewController: BasicViewController {
             
         }
         
+    }
+    
+    //图片被双击收藏
+    func imageDoubleTap() {
+        print("_----------")
     }
     
 

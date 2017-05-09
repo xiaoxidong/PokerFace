@@ -138,6 +138,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <navigationItem key="navigationItem" id="gKg-mH-bAD">
                         <nil key="title"/>
                         <barButtonItem key="leftBarButtonItem" image="back" id="uKh-1r-Lao">
@@ -171,7 +172,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="31v-ZW-4WJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2116" y="1003.4482758620691"/>
+            <point key="canvasLocation" x="1826" y="1041"/>
         </scene>
         <!--Search View Controller-->
         <scene sceneID="YQB-3L-dAz">
@@ -361,7 +362,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ibG-Mx-MIp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="804" y="976.46176911544239"/>
+            <point key="canvasLocation" x="670" y="1035"/>
         </scene>
         <!--App View Controller-->
         <scene sceneID="Htm-Nr-oCr">
@@ -585,7 +586,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="y4r-M3-7ur" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="894" y="161"/>
+            <point key="canvasLocation" x="670" y="172"/>
         </scene>
         <!--设置-->
         <scene sceneID="ncz-gF-ihb">
@@ -1341,7 +1342,7 @@
         <image name="upload" width="16" height="18"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="SUK-Va-8CD"/>
-        <segue reference="raU-eV-rqs"/>
+        <segue reference="gCx-Y9-pwY"/>
+        <segue reference="Olj-oD-1oi"/>
     </inferredMetricsTieBreakers>
 </document>
