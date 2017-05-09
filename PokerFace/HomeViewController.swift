@@ -99,25 +99,22 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
      }
      
      func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-         self.perform(#selector(self.didiEndScroll), with: nil, afterDelay: 2)
+         self.perform(#selector(self.didiEndScroll), with: nil, afterDelay: 3)
      
      }
      
      func didiEndScroll() {
          NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(didiEndScroll), object: nil)
-         
-         hideHomeStatusBar = false
-         self.setNeedsStatusBarAppearanceUpdate()
-         
-         self.navigationController?.setNavigationBarHidden(false, animated: true)
+        
+        self.hideHomeStatusBar = false
+        self.setNeedsStatusBarAppearanceUpdate()
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
+        
      }
      
      override var prefersStatusBarHidden: Bool {
          return hideHomeStatusBar
      }
- 
-    
-    
     
     //下拉加载更多数据
     func loadMore() {

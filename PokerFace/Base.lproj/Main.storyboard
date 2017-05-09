@@ -915,21 +915,20 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AG6-dg-3CM">
-                                        <rect key="frame" x="345" y="15" width="20" height="20"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AG6-dg-3CM">
+                                        <rect key="frame" x="345" y="0.0" width="30" height="50"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="20" id="iPk-5c-A83"/>
-                                            <constraint firstAttribute="width" constant="20" id="qEp-dP-eOi"/>
+                                            <constraint firstAttribute="width" constant="30" id="qEp-dP-eOi"/>
                                         </constraints>
                                         <state key="normal" image="combine"/>
                                         <connections>
                                             <action selector="categoryButtonDidTouch:" destination="DrZ-V8-KAq" eventType="touchUpInside" id="lyw-cS-Ek4"/>
                                         </connections>
                                     </button>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1ZU-u5-kxu">
+                                    <view alpha="0.10000000000000001" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1ZU-u5-kxu">
                                         <rect key="frame" x="130" y="0.0" width="1" height="50"/>
-                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="50" id="hDc-9U-2D5"/>
                                             <constraint firstAttribute="width" constant="1" id="tnk-Q4-tUh"/>
@@ -943,14 +942,14 @@
                                     <constraint firstItem="47h-oY-tjZ" firstAttribute="top" secondItem="FG0-OL-84F" secondAttribute="top" id="Cy6-71-3GB"/>
                                     <constraint firstItem="OtB-Q5-nbW" firstAttribute="leading" secondItem="47h-oY-tjZ" secondAttribute="trailing" id="Ii9-lg-cSY"/>
                                     <constraint firstItem="OtB-Q5-nbW" firstAttribute="top" secondItem="FG0-OL-84F" secondAttribute="top" id="NAN-9G-i3O"/>
-                                    <constraint firstItem="AG6-dg-3CM" firstAttribute="top" secondItem="FG0-OL-84F" secondAttribute="top" constant="15" id="UgQ-h7-PtU"/>
+                                    <constraint firstItem="AG6-dg-3CM" firstAttribute="top" secondItem="FG0-OL-84F" secondAttribute="top" id="UgQ-h7-PtU"/>
                                     <constraint firstItem="1ZU-u5-kxu" firstAttribute="top" secondItem="FG0-OL-84F" secondAttribute="top" id="Zgj-wh-GAx"/>
                                     <constraint firstAttribute="bottom" secondItem="47h-oY-tjZ" secondAttribute="bottom" id="f3f-su-0uA"/>
                                     <constraint firstItem="AG6-dg-3CM" firstAttribute="leading" secondItem="OtB-Q5-nbW" secondAttribute="trailing" id="nKD-va-5ro"/>
                                     <constraint firstItem="47h-oY-tjZ" firstAttribute="leading" secondItem="FG0-OL-84F" secondAttribute="leading" id="oNg-AQ-tyk"/>
-                                    <constraint firstAttribute="trailing" secondItem="AG6-dg-3CM" secondAttribute="trailing" constant="10" id="st3-n9-2aI"/>
+                                    <constraint firstAttribute="trailing" secondItem="AG6-dg-3CM" secondAttribute="trailing" id="st3-n9-2aI"/>
                                     <constraint firstAttribute="bottom" secondItem="OtB-Q5-nbW" secondAttribute="bottom" id="v6e-sD-Ofj"/>
-                                    <constraint firstAttribute="bottom" secondItem="AG6-dg-3CM" secondAttribute="bottom" constant="15" id="vHp-gC-nuM"/>
+                                    <constraint firstAttribute="bottom" secondItem="AG6-dg-3CM" secondAttribute="bottom" id="vHp-gC-nuM"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -1101,7 +1100,7 @@
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="C5W-ZG-sVM">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
-                                <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="backgroundColor" red="0.08225724846124649" green="0.081868790090084076" blue="0.10673259943723679" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="hTF-cl-kVO">
                                     <size key="itemSize" width="143" height="158"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>

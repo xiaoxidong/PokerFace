@@ -126,7 +126,7 @@ class DetailViewController: BasicViewController {
             UIApplication.shared.keyWindow?.addSubview(saveButton)
             
             //做一个出现的动画
-            UIView.animate(withDuration: 0.35, delay: 0, options: UIViewAnimationOptions.curveEaseInOut, animations: {
+            UIView.animate(withDuration: 0.4, delay: 0, options: UIViewAnimationOptions.curveEaseInOut, animations: {
                 self.moreView.layer.opacity = 1
                 self.moreView.baseView.frame.origin.y -= 140
                 self.saveButton.frame.origin.y = self.moreView.inView.frame.origin.y + self.view.bounds.height - 140
@@ -134,7 +134,7 @@ class DetailViewController: BasicViewController {
             
         } else {
             //做一个消失的动画
-            UIView.animate(withDuration: 0.35, delay: 0, options: UIViewAnimationOptions.curveEaseInOut, animations: { 
+            UIView.animate(withDuration: 0.4, delay: 0, options: UIViewAnimationOptions.curveEaseInOut, animations: {
                 self.moreView.layer.opacity = 0
                 self.moreView.baseView.frame.origin.y += 140
                 self.saveButton.frame.origin.y = self.moreView.inView.frame.origin.y + self.view.bounds.height

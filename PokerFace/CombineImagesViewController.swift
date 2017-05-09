@@ -13,30 +13,23 @@ class CombineImagesViewController: BasicViewController, UICollectionViewDelegate
 
     let kCellId = "combine"
     var moveModel = false
+    var editModel = false
     
     var itemSizes = [CGSize]()
     var moveItemSizes = [CGSize]()
+    var images = ["1", "2", "3"]
     
     var begainIndexpath: IndexPath?
     var targetIndexPath: IndexPath?
     
     var offset = CGPoint(x: 0, y: 0)
     
-    let dragingItem = CombineImagesCollectionViewCell()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        itemSizes = [CGSize(width: self.view.bounds.width - 100, height: self.view.bounds.height), CGSize(width: self.view.bounds.width - 100, height: 200), CGSize(width: self.view.bounds.width - 100, height: 100)]
+        itemSizes = [CGSize(width: self.view.bounds.width, height: self.view.bounds.height), CGSize(width: self.view.bounds.width, height: self.view.bounds.height), CGSize(width: self.view.bounds.width, height: self.view.bounds.height)]
         
         layoutCollectionView()
-        
-        dragingItem.frame = CGRect(x: 0, y: 0, width: self.view.bounds.width, height: 10)
-        dragingItem.backgroundColor = UIColor.purple
-        
-        combineCollectionView.addSubview(dragingItem)
-        
-        
 
     }
     
@@ -72,7 +65,24 @@ class CombineImagesViewController: BasicViewController, UICollectionViewDelegate
     
     //MARK :- UICollectionViewDelegate
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        editModel = !editModel
         
+        if editModel {
+            for itmesize in itemSizes {
+                let moveItmesize = CGSize(width: self.view.bounds.width * 0.8, height: itmesize.height * 0.8)
+                moveItemSizes.append(moveItmesize)
+            }
+            combineCollectionView.contentInset = UIEdgeInsetsMake(30, 0, 0, 0)
+            combineCollectionView.contentOffset.y += -30
+            
+            combineCollectionView.reloadData()
+        } else {
+            moveItemSizes.removeAll()
+            combineCollectionView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0)
+            combineCollectionView.contentOffset.y += 30
+            combineCollectionView.reloadData()
+            
+        }
     }
     
     
@@ -81,6 +91,9 @@ class CombineImagesViewController: BasicViewController, UICollectionViewDelegate
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: kCellId, for: indexPath) as! CombineImagesCollectionViewCell
+        
+        cell.singleImage.image = UIImage(named: images[indexPath.row])
+        cell.singleImage.contentMode = UIViewContentMode.scaleAspectFit
         
         if indexPath.row == 0 {
             cell.backgroundColor = UIColor.purple
@@ -100,16 +113,12 @@ class CombineImagesViewController: BasicViewController, UICollectionViewDelegate
         return cell
     }
     
-//    private lazy var dragingItem: UICollectionViewCell = {
-//        
-//        let cell = CombineImagesCollectionViewCell(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: 1))
-//        //cell.isHidden = true
-//        return cell
-//    }()
-    
+    //长按移动事件
     func photoLongPress(gesture: UILongPressGestureRecognizer) {
+        combineCollectionView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0)
+        
         let point = gesture.location(in: combineCollectionView)
-        let scale = combineCollectionView.contentSize.height / self.view.bounds.height
+        let scale = combineCollectionView.contentSize.height / 0.8 / self.view.bounds.height
         
         if gesture.state == UIGestureRecognizerState.began {
             /*
@@ -136,26 +145,24 @@ class CombineImagesViewController: BasicViewController, UICollectionViewDelegate
             moveModel = true
             offset = combineCollectionView.contentOffset
             
-            
+            moveItemSizes.removeAll()
             
             for itmesize in itemSizes {
-                let moveItmesize = CGSize(width: self.view.bounds.width - 100, height: itmesize.height/scale)
+                
+                let moveItmesize = CGSize(width: self.view.bounds.width, height: itmesize.height/scale)
                 moveItemSizes.append(moveItmesize)
             }
             
-            let item = combineCollectionView.cellForItem(at: begainIndexpath!) as? CombineImagesCollectionViewCell
-            item?.isHidden = false
-            
-            dragingItem.isHidden = true
-            dragingItem.frame = (item?.frame)!
-            
+            //let item = combineCollectionView.cellForItem(at: begainIndexpath!) as? CombineImagesCollectionViewCell
+            //item?.isHidden = false
+
             combineCollectionView.reloadData()
             
             
 
 //            //dragingItem.frame = CGRect(x: 0, y: (item?.frame.origin.y)! * scale, width: self.view.bounds.width, height: (item?.frame.size.height)! * scale)
 //
-            item?.transform = CGAffineTransform(scaleX: 1.1, y: 1.1)
+           // item?.transform = CGAffineTransform(scaleX: 1.1, y: 1.1)
             
             
         } else if gesture.state == UIGestureRecognizerState.changed {
@@ -175,6 +182,11 @@ class CombineImagesViewController: BasicViewController, UICollectionViewDelegate
             itemSizes.remove(at: (begainIndexpath?.row)!)
             itemSizes.insert(obj, at: (targetIndexPath?.item)!)
             
+            let obj2 = moveItemSizes[(begainIndexpath?.item)!]
+            moveItemSizes.remove(at: (begainIndexpath?.row)!)
+            moveItemSizes.insert(obj2, at: (targetIndexPath?.item)!)
+            
+            
             //交换位置
             combineCollectionView.moveItem(at: begainIndexpath!, to: targetIndexPath!)
             
@@ -186,6 +198,7 @@ class CombineImagesViewController: BasicViewController, UICollectionViewDelegate
             
         } else if gesture.state == UIGestureRecognizerState.ended {
             moveModel = false
+            editModel = false
             
             combineCollectionView.contentOffset = offset
             
@@ -226,7 +239,7 @@ class CombineImagesViewController: BasicViewController, UICollectionViewDelegate
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        if moveModel {
+        if moveModel || editModel {
             return moveItemSizes[indexPath.row]
         } else {
             return itemSizes[indexPath.row]
