@@ -23,6 +23,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
     
     var array = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20"]
     var newArray = ["10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "17"]
+    let yes = true
     
     var selectViewIsOn = false
     let selectView: SelectView = Bundle.main.loadNibNamed("SelectView", owner: self, options: nil)?.first as! SelectView
@@ -37,7 +38,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
     
     var page = 1
     
-    //let permissins: [SPRequestPermissionType] = [.photoLibrary]
+    let permissins: [SPRequestPermissionType] = [.photoLibrary]
     
     
     override func viewDidLoad() {
