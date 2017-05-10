@@ -15,6 +15,7 @@
 		4E243A901E96526E00E148B2 /* PokerFaceUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E243A8F1E96526E00E148B2 /* PokerFaceUITests.swift */; };
 		4E400E241EADF969008EE1D9 /* SelectView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4E400E231EADF969008EE1D9 /* SelectView.xib */; };
 		4E400E261EAE02D3008EE1D9 /* SelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E400E251EAE02D3008EE1D9 /* SelectView.swift */; };
+		4E4EC9F51EC1F22C00BF8060 /* ShadowImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4EC9F41EC1F22C00BF8060 /* ShadowImageView.swift */; };
 		4E67F82D1EB21263005AC112 /* SelectPhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E67F82C1EB21263005AC112 /* SelectPhotoCollectionViewCell.swift */; };
 		4E6A2C001E966213008208F8 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E6A2BFF1E966213008208F8 /* HomeViewController.swift */; };
 		4E6A2C021E966258008208F8 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E6A2C011E966258008208F8 /* DetailViewController.swift */; };
@@ -119,6 +120,7 @@
 		4E243A911E96526E00E148B2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4E400E231EADF969008EE1D9 /* SelectView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SelectView.xib; sourceTree = "<group>"; };
 		4E400E251EAE02D3008EE1D9 /* SelectView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectView.swift; sourceTree = "<group>"; };
+		4E4EC9F41EC1F22C00BF8060 /* ShadowImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShadowImageView.swift; sourceTree = "<group>"; };
 		4E67F82C1EB21263005AC112 /* SelectPhotoCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectPhotoCollectionViewCell.swift; sourceTree = "<group>"; };
 		4E6A2BFF1E966213008208F8 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		4E6A2C011E966258008208F8 /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
@@ -269,6 +271,7 @@
 				4E28F56D1EB49A87002F4F64 /* StoryBoard */,
 				4ECCC1181EB82AEB004B5DF3 /* Banner */,
 				4ECCC12F1EB96D0F004B5DF3 /* CKWaveCollectionViewAnimator */,
+				4E4EC9F31EC1F22C00BF8060 /* ShadowImageView */,
 				4E797A301EB073A300CF76AC /* imagePicker */,
 				4E28F56B1EB49A61002F4F64 /* Basic */,
 			);
@@ -406,6 +409,14 @@
 				4ECCC10C1EB5F5BE004B5DF3 /* SaveView.xib */,
 			);
 			name = StoryBoard;
+			sourceTree = "<group>";
+		};
+		4E4EC9F31EC1F22C00BF8060 /* ShadowImageView */ = {
+			isa = PBXGroup;
+			children = (
+				4E4EC9F41EC1F22C00BF8060 /* ShadowImageView.swift */,
+			);
+			path = ShadowImageView;
 			sourceTree = "<group>";
 		};
 		4E797A301EB073A300CF76AC /* imagePicker */ = {
@@ -774,6 +785,7 @@
 				4E797A4C1EB073A300CF76AC /* PhotoFetchOptions.swift in Sources */,
 				4E6A2C021E966258008208F8 /* DetailViewController.swift in Sources */,
 				4E243A701E96526E00E148B2 /* AppDelegate.swift in Sources */,
+				4E4EC9F51EC1F22C00BF8060 /* ShadowImageView.swift in Sources */,
 				4E6A2C041E966279008208F8 /* AppViewController.swift in Sources */,
 				4E797A541EB073A300CF76AC /* PhotoPreviewViewController.swift in Sources */,
 				4E7EB9471EB2C3860042E7CC /* CategoryCollectionViewCell.swift in Sources */,

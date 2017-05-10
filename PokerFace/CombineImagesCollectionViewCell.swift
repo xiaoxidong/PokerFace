@@ -11,4 +11,7 @@ import UIKit
 class CombineImagesCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var singleImage: UIImageView!
     
+    @IBOutlet weak var upButton: UIButton!
+    @IBOutlet weak var downButton: UIButton!
+    
 }

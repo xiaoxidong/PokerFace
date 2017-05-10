@@ -1100,7 +1100,7 @@
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="C5W-ZG-sVM">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
-                                <color key="backgroundColor" red="0.08225724846124649" green="0.081868790090084076" blue="0.10673259943723679" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="hTF-cl-kVO">
                                     <size key="itemSize" width="143" height="158"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -1115,26 +1115,53 @@
                                             <rect key="frame" x="0.0" y="0.0" width="143" height="158"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
+                                                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="o6H-yg-56L">
+                                                    <rect key="frame" x="56" y="-1" width="77" height="20"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="20" id="75t-bp-WKU"/>
+                                                        <constraint firstAttribute="width" constant="77" id="wU6-ar-QaX"/>
+                                                    </constraints>
+                                                    <state key="normal" image="cutDown">
+                                                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                </button>
+                                                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lGE-Ss-5LD">
+                                                    <rect key="frame" x="56" y="139" width="77" height="20"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="77" id="2k2-s7-z0R"/>
+                                                        <constraint firstAttribute="height" constant="20" id="o3k-17-Pey"/>
+                                                    </constraints>
+                                                    <state key="normal" image="cutUp">
+                                                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                </button>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="dOi-YP-Z0N">
                                                     <rect key="frame" x="0.0" y="0.0" width="143" height="158"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 </imageView>
                                             </subviews>
                                         </view>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
+                                            <constraint firstItem="o6H-yg-56L" firstAttribute="top" secondItem="qZ2-IO-xFo" secondAttribute="top" constant="-1" id="3JS-78-bIf"/>
                                             <constraint firstItem="dOi-YP-Z0N" firstAttribute="leading" secondItem="qZ2-IO-xFo" secondAttribute="leading" id="9uO-e2-cq9"/>
+                                            <constraint firstAttribute="trailing" secondItem="lGE-Ss-5LD" secondAttribute="trailing" constant="10" id="NGf-Nc-qTo"/>
+                                            <constraint firstAttribute="bottom" secondItem="lGE-Ss-5LD" secondAttribute="bottom" constant="-1" id="OCb-tR-oxX"/>
                                             <constraint firstAttribute="bottom" secondItem="dOi-YP-Z0N" secondAttribute="bottom" id="QLt-o6-kRN"/>
+                                            <constraint firstAttribute="trailing" secondItem="o6H-yg-56L" secondAttribute="trailing" constant="10" id="Yum-gz-Vxz"/>
                                             <constraint firstAttribute="trailing" secondItem="dOi-YP-Z0N" secondAttribute="trailing" id="laj-l4-lAs"/>
                                             <constraint firstItem="dOi-YP-Z0N" firstAttribute="top" secondItem="qZ2-IO-xFo" secondAttribute="top" id="thf-TN-tFo"/>
                                         </constraints>
                                         <connections>
+                                            <outlet property="downButton" destination="o6H-yg-56L" id="haH-5c-TSp"/>
                                             <outlet property="singleImage" destination="dOi-YP-Z0N" id="S7l-rJ-WXt"/>
+                                            <outlet property="upButton" destination="lGE-Ss-5LD" id="zaf-xF-ctw"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="C5W-ZG-sVM" secondAttribute="trailing" id="1zg-U8-LCj"/>
                             <constraint firstItem="C5W-ZG-sVM" firstAttribute="leading" secondItem="val-wg-uBu" secondAttribute="leading" id="QQt-IR-I79"/>
@@ -1327,6 +1354,8 @@
         <image name="close" width="12" height="12"/>
         <image name="combine" width="19" height="19"/>
         <image name="comment" width="20" height="20"/>
+        <image name="cutDown" width="77" height="21"/>
+        <image name="cutUp" width="77" height="21"/>
         <image name="icon" width="30" height="30"/>
         <image name="indicator" width="8" height="5"/>
         <image name="link" width="18" height="8"/>

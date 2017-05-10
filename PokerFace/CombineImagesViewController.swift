@@ -24,12 +24,17 @@ class CombineImagesViewController: BasicViewController, UICollectionViewDelegate
     
     var offset = CGPoint(x: 0, y: 0)
     
+    var selectedIndexPath = IndexPath()
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         itemSizes = [CGSize(width: self.view.bounds.width, height: self.view.bounds.height), CGSize(width: self.view.bounds.width, height: self.view.bounds.height), CGSize(width: self.view.bounds.width, height: self.view.bounds.height)]
         
         layoutCollectionView()
+        
+        
 
     }
     
@@ -45,19 +50,6 @@ class CombineImagesViewController: BasicViewController, UICollectionViewDelegate
     
     //初始化 CollectionView
     func layoutCollectionView() {
-//        let layout = UICollectionViewFlowLayout()
-//        
-//        let cellWidth = self.view.bounds.width
-//        let cellHeight = self.view.bounds.height
-//        
-//        layout.itemSize = CGSize(width:cellWidth, height:cellHeight)
-//        //列间距,行间距,偏移
-//        layout.minimumInteritemSpacing = 0
-//        layout.minimumLineSpacing = 0
-//        layout.sectionInset = UIEdgeInsetsMake(0, 0, 5, 0)
-//        
-//        combineCollectionView.collectionViewLayout = layout
-        
         combineCollectionView.showsVerticalScrollIndicator = false
         combineCollectionView!.delegate = self
         combineCollectionView!.dataSource = self
@@ -66,16 +58,37 @@ class CombineImagesViewController: BasicViewController, UICollectionViewDelegate
     //MARK :- UICollectionViewDelegate
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         editModel = !editModel
+        selectedIndexPath = indexPath
+//        if selectedIndexPath != indexPath {
+//            
+//            
+//            selectedIndexPath = indexPath
+//        } else {
+//            
+//        }
+        
+        print(indexPath)
+//        
+//        let cell = combineCollectionView.cellForItem(at: indexPath) as! CombineImagesCollectionViewCell
+//        cell.upButton.isHidden = false
+//        cell.downButton.isHidden = false
+//        cell.isSelected = true
+//        cell.backgroundColor = UIColor.purple
+    
+        
+        //itemSizes = [CGSize(width: self.view.bounds.width, height: 100), CGSize(width: self.view.bounds.width, height: self.view.bounds.height), CGSize(width: self.view.bounds.width, height: self.view.bounds.height)]
+
         
         if editModel {
             for itmesize in itemSizes {
-                let moveItmesize = CGSize(width: self.view.bounds.width * 0.8, height: itmesize.height * 0.8)
+                let moveItmesize = CGSize(width: self.view.bounds.width, height: itmesize.height * 0.8)
                 moveItemSizes.append(moveItmesize)
             }
             combineCollectionView.contentInset = UIEdgeInsetsMake(30, 0, 0, 0)
             combineCollectionView.contentOffset.y += -30
             
             combineCollectionView.reloadData()
+            
         } else {
             moveItemSizes.removeAll()
             combineCollectionView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0)
@@ -83,8 +96,15 @@ class CombineImagesViewController: BasicViewController, UICollectionViewDelegate
             combineCollectionView.reloadData()
             
         }
+
     }
-    
+//    
+//    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+//        let cell = combineCollectionView.cellForItem(at: indexPath) as! CombineImagesCollectionViewCell
+//        cell.upButton.isHidden = true
+//        cell.downButton.isHidden = true
+//        
+//    }
     
     
     //MARK :- UICollectionViewDataSource
@@ -105,10 +125,17 @@ class CombineImagesViewController: BasicViewController, UICollectionViewDelegate
         
         let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(self.photoLongPress(gesture:)))
         cell.singleImage.isUserInteractionEnabled = true
-        
         cell.singleImage.addGestureRecognizer(longPressGesture)
         
         cell.tag = indexPath.row
+        if indexPath == selectedIndexPath {
+            cell.upButton.isHidden = false
+            cell.downButton.isHidden = false
+        } else {
+            cell.upButton.isHidden = true
+            cell.downButton.isHidden = true
+        }
+        
         
         return cell
     }
@@ -118,27 +145,16 @@ class CombineImagesViewController: BasicViewController, UICollectionViewDelegate
         combineCollectionView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0)
         
         let point = gesture.location(in: combineCollectionView)
-        let scale = combineCollectionView.contentSize.height / 0.8 / self.view.bounds.height
+        
+        var scale: CGFloat = 0
+        if editModel {
+            scale = combineCollectionView.contentSize.height / 0.8 / self.view.bounds.height
+        } else {
+            scale = combineCollectionView.contentSize.height / self.view.bounds.height
+        }
+        
         
         if gesture.state == UIGestureRecognizerState.began {
-            /*
-
-
-            let item = combineCollectionView.cellForItem(at: begainIndexpath) as? CombineImagesCollectionViewCell
-            item?.isHidden = true
-            
-//            let dragingItem = CombineImagesCollectionViewCell()
-//            dragingItem.singleImage.image = item?.singleImage.image
-            
-
-            //放大效果(此处可以根据需求随意修改)
-            //dragingItem.transform = CGAffineTransform(scaleX: 1.1, y: 1.1)
-            
-            if let selectedIndexPath = combineCollectionView.indexPathForItem(at: gesture.location(in: self.combineCollectionView)) {
-                combineCollectionView.beginInteractiveMovementForItem(at: selectedIndexPath)
-            }
-            
-            */
             
             begainIndexpath = combineCollectionView.indexPathForItem(at: point)!
             
@@ -152,39 +168,25 @@ class CombineImagesViewController: BasicViewController, UICollectionViewDelegate
                 let moveItmesize = CGSize(width: self.view.bounds.width, height: itmesize.height/scale)
                 moveItemSizes.append(moveItmesize)
             }
-            
-            //let item = combineCollectionView.cellForItem(at: begainIndexpath!) as? CombineImagesCollectionViewCell
-            //item?.isHidden = false
 
             combineCollectionView.reloadData()
             
             
-
-//            //dragingItem.frame = CGRect(x: 0, y: (item?.frame.origin.y)! * scale, width: self.view.bounds.width, height: (item?.frame.size.height)! * scale)
-//
-           // item?.transform = CGAffineTransform(scaleX: 1.1, y: 1.1)
-            
-            
         } else if gesture.state == UIGestureRecognizerState.changed {
-            //combineCollectionView.updateInteractiveMovementTargetPosition(gesture.location(in: gesture.view!))
             
-            //combineCollectionView.beginInteractiveMovementForItem(at: begainIndexpath!)
-            
-//            dragingItem.center = point
-//            
             let newPoint = CGPoint(x: point.x * scale, y: point.y * scale)
             
             targetIndexPath = combineCollectionView.indexPathForItem(at: newPoint)
             
 
             // 更新数据
-            let obj = itemSizes[(begainIndexpath?.item)!]
+            let obj = itemSizes[(begainIndexpath?.row)!]
             itemSizes.remove(at: (begainIndexpath?.row)!)
-            itemSizes.insert(obj, at: (targetIndexPath?.item)!)
+            itemSizes.insert(obj, at: (targetIndexPath?.row)!)
             
-            let obj2 = moveItemSizes[(begainIndexpath?.item)!]
+            let obj2 = moveItemSizes[(begainIndexpath?.row)!]
             moveItemSizes.remove(at: (begainIndexpath?.row)!)
-            moveItemSizes.insert(obj2, at: (targetIndexPath?.item)!)
+            moveItemSizes.insert(obj2, at: (targetIndexPath?.row)!)
             
             
             //交换位置
@@ -194,7 +196,6 @@ class CombineImagesViewController: BasicViewController, UICollectionViewDelegate
             
             begainIndexpath = targetIndexPath
 
-            
             
         } else if gesture.state == UIGestureRecognizerState.ended {
             moveModel = false
@@ -213,18 +214,6 @@ class CombineImagesViewController: BasicViewController, UICollectionViewDelegate
         
     }
     
-//    func collectionView(_ collectionView: UICollectionView, targetIndexPathForMoveFromItemAt originalIndexPath: IndexPath, toProposedIndexPath proposedIndexPath: IndexPath) -> IndexPath {
-//        
-//        return
-//    }
-    
-//    func collectionView(collectionView: UICollectionView, moveItemAtIndexPath sourceIndexPath: NSIndexPath, toIndexPath destinationIndexPath: NSIndexPath) {
-//        //调整数据源数据的顺序
-//    }
-    
-    func collectionView(_ collectionView: UICollectionView, moveItemAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-        
-    }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return itemSizes.count
@@ -233,6 +222,7 @@ class CombineImagesViewController: BasicViewController, UICollectionViewDelegate
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 0
     }
+    
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
