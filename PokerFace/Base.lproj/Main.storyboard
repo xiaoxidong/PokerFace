@@ -893,10 +893,17 @@
                                             <rect key="frame" x="0.0" y="0.0" width="374" height="608"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </view>
-                                        <color key="backgroundColor" red="0.93255727180000003" green="1" blue="0.1051569718" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tMh-K2-9rF">
+                                <rect key="frame" x="0.0" y="413" width="375" height="140"/>
+                                <color key="backgroundColor" red="0.93255727180000003" green="1" blue="0.1051569718" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="140" id="tLk-jg-ebx"/>
+                                </constraints>
+                            </scrollView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FG0-OL-84F">
                                 <rect key="frame" x="0.0" y="553" width="375" height="50"/>
                                 <subviews>
@@ -959,8 +966,11 @@
                             <constraint firstItem="iNF-cL-gHQ" firstAttribute="top" secondItem="UlA-31-eCh" secondAttribute="bottom" id="AeJ-DI-5mb"/>
                             <constraint firstItem="UlA-31-eCh" firstAttribute="leading" secondItem="ssG-GK-OZ1" secondAttribute="leading" id="XTC-tr-yX7"/>
                             <constraint firstItem="iNF-cL-gHQ" firstAttribute="top" secondItem="FG0-OL-84F" secondAttribute="bottom" id="bjq-db-wIk"/>
+                            <constraint firstItem="tMh-K2-9rF" firstAttribute="leading" secondItem="ssG-GK-OZ1" secondAttribute="leading" id="byt-V9-uW6"/>
+                            <constraint firstAttribute="trailing" secondItem="tMh-K2-9rF" secondAttribute="trailing" id="mTN-Je-CAK"/>
                             <constraint firstItem="UlA-31-eCh" firstAttribute="top" secondItem="ntb-7S-5KI" secondAttribute="bottom" id="orH-Gz-ZRd"/>
                             <constraint firstItem="FG0-OL-84F" firstAttribute="leading" secondItem="ssG-GK-OZ1" secondAttribute="leading" id="t76-VD-2pc"/>
+                            <constraint firstItem="FG0-OL-84F" firstAttribute="top" secondItem="tMh-K2-9rF" secondAttribute="bottom" id="vv4-Ie-s89"/>
                             <constraint firstAttribute="trailing" secondItem="FG0-OL-84F" secondAttribute="trailing" id="zHy-LU-BhK"/>
                         </constraints>
                     </view>
@@ -984,6 +994,7 @@
                         <outlet property="nameTextField" destination="47h-oY-tjZ" id="ngg-3H-ojr"/>
                         <outlet property="photoCollectionView" destination="UlA-31-eCh" id="hQE-ro-uWn"/>
                         <outlet property="rightButton" destination="fGO-lS-9w2" id="GMU-FC-DCP"/>
+                        <outlet property="tagScrollView" destination="tMh-K2-9rF" id="h5R-Vn-PP5"/>
                         <outlet property="toolBarView" destination="FG0-OL-84F" id="xUI-hg-lG3"/>
                         <segue destination="sqv-TA-Fst" kind="push" identifier="select" id="pTF-xT-fAd"/>
                     </connections>

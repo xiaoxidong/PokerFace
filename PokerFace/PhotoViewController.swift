@@ -10,14 +10,16 @@ import UIKit
 import PopupDialog
 import Photos
 import ReachabilitySwift
+import TagListView
 
-class PhotoViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UIScrollViewDelegate, UITextFieldDelegate {
+class PhotoViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UIScrollViewDelegate, UITextFieldDelegate, TagListViewDelegate {
     @IBOutlet weak var photoCollectionView: UICollectionView!
     @IBOutlet weak var rightButton: UIBarButtonItem!
     @IBOutlet weak var bottomLayoutConstraint: NSLayoutConstraint!
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var toolBarView: UIView!
     @IBOutlet weak var categoryTextField: UITextField!
+    @IBOutlet weak var tagScrollView: UIScrollView!
     
     var selectedImages = [PHAsset]()
     var selectModel = [PhotoImageModel]()
@@ -25,6 +27,12 @@ class PhotoViewController: UIViewController, UICollectionViewDelegate, UICollect
     let kCellId = "photoCell"
     
     var keyBoardHeight: CGFloat = 0
+    var showOrHideView = false
+    
+    var showOrHideNameView = false
+    var showOrHideCategoryView = false
+    
+    var tagNames = ["北京", "内蒙古自治区", "摩洛哥", "吃饭", "西安", "拉斐尔", "湖北", "Newyork", "洛杉矶", "拉萨", "晓东", "晓东", "晓东", "晓东", "晓东", "晓东", "晓东", "晓东", "晓东", "晓哈哈哈东", "晓东", "晓东", "晓东", "晓东", "晓东", "晓东", "晓东", "晓东", "晓东", "晓东", "晓东", "晓东", "晓东", "晓东", "晓东", "晓东", "晓东", "晓东", "晓东", "晓东"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,6 +48,9 @@ class PhotoViewController: UIViewController, UICollectionViewDelegate, UICollect
         
         nameTextField.delegate = self
         categoryTextField.delegate = self
+        
+        nameTextField.tag = 100
+        categoryTextField.tag = 101
         
         nameTextField.tintColor = UIColor.black
         categoryTextField.tintColor = UIColor.black
@@ -57,16 +68,108 @@ class PhotoViewController: UIViewController, UICollectionViewDelegate, UICollect
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide(notice:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardChangeFrame(notice:)), name: NSNotification.Name.UIKeyboardWillChangeFrame, object: nil)
         
+        
+        tagScrollView.contentSize = CGSize(width: self.view.bounds.width * 2, height: 140)
+        tagScrollView.showsHorizontalScrollIndicator = false
+        
+        //初始化tag
+        self.setTagView()
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
         
-        nameTextField.becomeFirstResponder()
+        //nameTextField.becomeFirstResponder()
+    }
+    
+    func setTagView() {
+        
+        let tagView = TagListView()
+        tagView.frame = CGRect(x: 10, y: 10, width: self.view.bounds.width * 2 - 20, height: 120)
+        tagView.marginX = 14
+        tagView.marginY = 14
+        tagView.paddingX = 10
+        tagView.paddingY = 10
+        tagView.cornerRadius = 16
+        
+        tagView.delegate = self
+        
+        for tag in tagNames {
+            
+            tagView.addTag(tag)
+            
+        }
+        
+        for singleTagView in tagView.tagViews {
+            singleTagView.backgroundColor = self.randomColor()
+        }
+        
+        tagScrollView.addSubview(tagView)
+    }
+    
+    //某个 Tag 被点击
+    func tagPressed(_ title: String, tagView: TagView, sender: TagListView) {
+        print("Tag pressed: \(title), \(sender)")
+        //sender.removeTag(title)
+        
+        if !(categoryTextField.text?.contains(title))! {
+            if (categoryTextField.text?.isEmpty)! || categoryTextField.text?.characters.last == "," || categoryTextField.text?.characters.last == "，" {
+                categoryTextField.text = categoryTextField.text! + "\(title)"
+            } else {
+                categoryTextField.text = categoryTextField.text! + "，\(title)"
+            }
+            
+        }
+    }
+    
+    //显示和隐藏 tagView
+    func showOrHideTagView() {
+        if showOrHideCategoryView {
+            UIView.animate(withDuration: 0.4, delay: 0, options: UIViewAnimationOptions.curveEaseInOut, animations: {
+                self.tagScrollView.layer.opacity = 1
+                
+            }, completion: nil)
+        } else {
+            UIView.animate(withDuration: 0.4, delay: 0, options: UIViewAnimationOptions.curveEaseInOut, animations: {
+                self.tagScrollView.layer.opacity = 0
+                
+            }, completion: nil)
+        }
+        
+    }
+    
+    //显示和隐藏 Name
+    func showOrHideNameTableView() {
+        if showOrHideNameView {
+            UIView.animate(withDuration: 0.4, delay: 0, options: UIViewAnimationOptions.curveEaseInOut, animations: {
+                //self.tagScrollView.layer.opacity = 1
+                
+            }, completion: nil)
+        } else {
+            UIView.animate(withDuration: 0.4, delay: 0, options: UIViewAnimationOptions.curveEaseInOut, animations: {
+                //self.tagScrollView.layer.opacity = 0
+                
+            }, completion: nil)
+        }
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        print("---------")
+        if textField.tag == 100 {
+            //name 输入框被激活
+            showOrHideCategoryView = false
+            self.showOrHideTagView()
+            
+            showOrHideNameView = true
+            self.showOrHideNameTableView()
+        } else if textField.tag == 101 {
+            //分类输入框被激活
+            showOrHideNameView = false
+            self.showOrHideNameTableView()
+            
+            showOrHideCategoryView = true
+            self.showOrHideTagView()
+        }
     }
     
     func keyboardWillShow(notice : NSNotification) {
@@ -93,6 +196,13 @@ class PhotoViewController: UIViewController, UICollectionViewDelegate, UICollect
     
     func keyboardWillHide(notice : NSNotification) {
         bottomLayoutConstraint.constant = 0
+
+        showOrHideNameView = false
+        self.showOrHideNameTableView()
+        
+        showOrHideCategoryView = false
+        self.showOrHideTagView()
+        
     }
     
     func keyboardChangeFrame(notice : NSNotification) {
@@ -366,6 +476,12 @@ class PhotoViewController: UIViewController, UICollectionViewDelegate, UICollect
     //图片上传服务器
     func uploadImages() {
         print("来上传图片吧")
+        
+    }
+    
+    //MARK: - 产生随机色
+    func randomColor() -> UIColor {
+        return UIColor(red: CGFloat(arc4random_uniform(256))/256.0, green: CGFloat(arc4random_uniform(128))/256.0+0.5, blue: CGFloat(arc4random_uniform(128))/256.0+0.5, alpha: 1)
     }
 
 }
