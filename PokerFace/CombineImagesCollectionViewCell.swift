@@ -13,5 +13,7 @@ class CombineImagesCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var upButton: UIButton!
     @IBOutlet weak var downButton: UIButton!
+    @IBOutlet weak var upLineButton: UIButton!
+    @IBOutlet weak var downLineButton: UIButton!
     
 }

@@ -34,8 +34,6 @@ class CombineImagesViewController: BasicViewController, UICollectionViewDelegate
         
         layoutCollectionView()
         
-        
-
     }
     
     @IBAction func backButtonDidTouch(_ sender: UIBarButtonItem) {
@@ -57,29 +55,11 @@ class CombineImagesViewController: BasicViewController, UICollectionViewDelegate
     
     //MARK :- UICollectionViewDelegate
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        editModel = !editModel
-        selectedIndexPath = indexPath
-//        if selectedIndexPath != indexPath {
-//            
-//            
-//            selectedIndexPath = indexPath
-//        } else {
-//            
-//        }
-        
-        print(indexPath)
-//        
-//        let cell = combineCollectionView.cellForItem(at: indexPath) as! CombineImagesCollectionViewCell
-//        cell.upButton.isHidden = false
-//        cell.downButton.isHidden = false
-//        cell.isSelected = true
-//        cell.backgroundColor = UIColor.purple
-    
-        
-        //itemSizes = [CGSize(width: self.view.bounds.width, height: 100), CGSize(width: self.view.bounds.width, height: self.view.bounds.height), CGSize(width: self.view.bounds.width, height: self.view.bounds.height)]
 
-        
-        if editModel {
+        if selectedIndexPath == [] {
+            selectedIndexPath = indexPath
+            
+            editModel = !editModel
             for itmesize in itemSizes {
                 let moveItmesize = CGSize(width: self.view.bounds.width, height: itmesize.height * 0.8)
                 moveItemSizes.append(moveItmesize)
@@ -89,24 +69,22 @@ class CombineImagesViewController: BasicViewController, UICollectionViewDelegate
             
             combineCollectionView.reloadData()
             
+        } else if selectedIndexPath != [] && selectedIndexPath != indexPath {
+            selectedIndexPath = indexPath
+            combineCollectionView.reloadData()
+            
         } else {
+            editModel = !editModel
+            selectedIndexPath = []
+            
             moveItemSizes.removeAll()
             combineCollectionView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0)
             combineCollectionView.contentOffset.y += 30
             combineCollectionView.reloadData()
-            
         }
 
     }
-//    
-//    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
-//        let cell = combineCollectionView.cellForItem(at: indexPath) as! CombineImagesCollectionViewCell
-//        cell.upButton.isHidden = true
-//        cell.downButton.isHidden = true
-//        
-//    }
-    
-    
+
     //MARK :- UICollectionViewDataSource
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
@@ -115,12 +93,16 @@ class CombineImagesViewController: BasicViewController, UICollectionViewDelegate
         cell.singleImage.image = UIImage(named: images[indexPath.row])
         cell.singleImage.contentMode = UIViewContentMode.scaleAspectFit
         
-        if indexPath.row == 0 {
-            cell.backgroundColor = UIColor.purple
-        } else if indexPath.row == 1 {
-            cell.backgroundColor = UIColor.green
+        if indexPath == selectedIndexPath {
+            cell.upButton.isHidden = false
+            cell.downButton.isHidden = false
+            cell.upLineButton.isHidden = false
+            cell.downLineButton.isHidden = false
         } else {
-            cell.backgroundColor = UIColor.yellow
+            cell.upButton.isHidden = true
+            cell.downButton.isHidden = true
+            cell.upLineButton.isHidden = true
+            cell.downLineButton.isHidden = true
         }
         
         let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(self.photoLongPress(gesture:)))
@@ -128,17 +110,23 @@ class CombineImagesViewController: BasicViewController, UICollectionViewDelegate
         cell.singleImage.addGestureRecognizer(longPressGesture)
         
         cell.tag = indexPath.row
-        if indexPath == selectedIndexPath {
-            cell.upButton.isHidden = false
-            cell.downButton.isHidden = false
-        } else {
-            cell.upButton.isHidden = true
-            cell.downButton.isHidden = true
-        }
         
+        let upButtonDragGesture = UIPanGestureRecognizer(target: self, action: #selector(self.cutDidMove(gesture:)))
+        let downButtonDragGesture = UIPanGestureRecognizer(target: self, action: #selector(self.cutDidMove(gesture:)))
+        cell.downButton.addGestureRecognizer(downButtonDragGesture)
+        cell.upButton.addGestureRecognizer(upButtonDragGesture)
         
         return cell
     }
+    
+    func cutDidMove(gesture: UITapGestureRecognizer) {
+        
+        if gesture.state == UIGestureRecognizerState.changed {
+            let point = gesture.location(in: combineCollectionView)
+            print(point)
+        }
+    }
+    
     
     //长按移动事件
     func photoLongPress(gesture: UILongPressGestureRecognizer) {

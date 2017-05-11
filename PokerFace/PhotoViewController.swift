@@ -65,6 +65,10 @@ class PhotoViewController: UIViewController, UICollectionViewDelegate, UICollect
         nameTextField.becomeFirstResponder()
     }
     
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        print("---------")
+    }
+    
     func keyboardWillShow(notice : NSNotification) {
         let userInfo = notice.userInfo as NSDictionary!
         
@@ -74,8 +78,6 @@ class PhotoViewController: UIViewController, UICollectionViewDelegate, UICollect
         
         //键盘的高度
         keyBoardHeight = keyboardRect!.size.height
-        print("\(keyBoardHeight)------")
-        
         
         UIView.animate(withDuration: 0.2, delay: 0, options: UIViewAnimationOptions.curveEaseInOut, animations: {
             
