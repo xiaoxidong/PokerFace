@@ -55,6 +55,8 @@
 		4E7EB9531EB337AC0042E7CC /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7EB9521EB337AC0042E7CC /* CollectionViewCell.swift */; };
 		4E95D71B1EAF01B90034D627 /* HomeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E95D71A1EAF01B90034D627 /* HomeCollectionViewCell.swift */; };
 		4E95D71D1EAF555F0034D627 /* BasicViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E95D71C1EAF555F0034D627 /* BasicViewController.swift */; };
+		4EBE78A11EC42FE800C99450 /* SearchCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBE78A01EC42FE800C99450 /* SearchCollectionViewCell.swift */; };
+		4EBE78A31EC44C9700C99450 /* PhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBE78A21EC44C9700C99450 /* PhotoCollectionViewCell.swift */; };
 		4ECCC1091EB5F584004B5DF3 /* DetailMoreView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4ECCC1081EB5F584004B5DF3 /* DetailMoreView.xib */; };
 		4ECCC10B1EB5F5AB004B5DF3 /* ShareView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4ECCC10A1EB5F5AB004B5DF3 /* ShareView.xib */; };
 		4ECCC10D1EB5F5BE004B5DF3 /* SaveView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4ECCC10C1EB5F5BE004B5DF3 /* SaveView.xib */; };
@@ -160,6 +162,8 @@
 		4E7EB9521EB337AC0042E7CC /* CollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
 		4E95D71A1EAF01B90034D627 /* HomeCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeCollectionViewCell.swift; sourceTree = "<group>"; };
 		4E95D71C1EAF555F0034D627 /* BasicViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicViewController.swift; sourceTree = "<group>"; };
+		4EBE78A01EC42FE800C99450 /* SearchCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchCollectionViewCell.swift; sourceTree = "<group>"; };
+		4EBE78A21EC44C9700C99450 /* PhotoCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoCollectionViewCell.swift; sourceTree = "<group>"; };
 		4ECCC1081EB5F584004B5DF3 /* DetailMoreView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DetailMoreView.xib; sourceTree = "<group>"; };
 		4ECCC10A1EB5F5AB004B5DF3 /* ShareView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShareView.xib; sourceTree = "<group>"; };
 		4ECCC10C1EB5F5BE004B5DF3 /* SaveView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SaveView.xib; sourceTree = "<group>"; };
@@ -370,6 +374,8 @@
 			isa = PBXGroup;
 			children = (
 				4E6A2C0B1E966387008208F8 /* PhotoViewController.swift */,
+				4EBE78A01EC42FE800C99450 /* SearchCollectionViewCell.swift */,
+				4EBE78A21EC44C9700C99450 /* PhotoCollectionViewCell.swift */,
 				4E6A2C0D1E9663AC008208F8 /* SelectPhotoViewController.swift */,
 				4E67F82C1EB21263005AC112 /* SelectPhotoCollectionViewCell.swift */,
 				4E797A5D1EB1A93700CF76AC /* CombineImagesViewController.swift */,
@@ -805,6 +811,7 @@
 				4E797A491EB073A300CF76AC /* photoCollectionViewCell.swift in Sources */,
 				4ECCC13F1EB9A255004B5DF3 /* SecondHomeCollectionViewCell.swift in Sources */,
 				4E7EB9531EB337AC0042E7CC /* CollectionViewCell.swift in Sources */,
+				4EBE78A31EC44C9700C99450 /* PhotoCollectionViewCell.swift in Sources */,
 				4ECCC1221EB82AEB004B5DF3 /* BannerStyle.swift in Sources */,
 				4E95D71D1EAF555F0034D627 /* BasicViewController.swift in Sources */,
 				4ECCC1211EB82AEB004B5DF3 /* BannerColors.swift in Sources */,
@@ -819,6 +826,7 @@
 				4E6A2C0C1E966387008208F8 /* PhotoViewController.swift in Sources */,
 				4ECCC1281EB86869004B5DF3 /* CombineImagesCollectionViewCell.swift in Sources */,
 				4E797A531EB073A300CF76AC /* PhotoPreviewToolbarView.swift in Sources */,
+				4EBE78A11EC42FE800C99450 /* SearchCollectionViewCell.swift in Sources */,
 				4ECCC1231EB82AEB004B5DF3 /* BaseNotificationBanner.swift in Sources */,
 				4E797A4F1EB073A300CF76AC /* PhotoPickerConfig.swift in Sources */,
 				4ECCC13B1EB96D0F004B5DF3 /* UIViewControllerExtension.swift in Sources */,

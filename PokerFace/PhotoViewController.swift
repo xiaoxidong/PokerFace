@@ -11,6 +11,8 @@ import PopupDialog
 import Photos
 import ReachabilitySwift
 import TagListView
+import RandomColorSwift
+import CHIPageControl
 
 class PhotoViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UIScrollViewDelegate, UITextFieldDelegate, TagListViewDelegate {
     @IBOutlet weak var photoCollectionView: UICollectionView!
@@ -20,11 +22,14 @@ class PhotoViewController: UIViewController, UICollectionViewDelegate, UICollect
     @IBOutlet weak var toolBarView: UIView!
     @IBOutlet weak var categoryTextField: UITextField!
     @IBOutlet weak var tagScrollView: UIScrollView!
+    @IBOutlet weak var searchCollectionView: UICollectionView!
+    @IBOutlet weak var searchHeigtConstraint: NSLayoutConstraint!
     
     var selectedImages = [PHAsset]()
     var selectModel = [PhotoImageModel]()
     
-    let kCellId = "photoCell"
+    let kPhotoCellId = "photoCell"
+    let kAppCellId = "searchAppCell"
     
     var keyBoardHeight: CGFloat = 0
     var showOrHideView = false
@@ -32,25 +37,49 @@ class PhotoViewController: UIViewController, UICollectionViewDelegate, UICollect
     var showOrHideNameView = false
     var showOrHideCategoryView = false
     
+    var isSearching = false
+    
+    var pageControl = CHIPageControlChimayo()
+    
     var tagNames = ["北京", "内蒙古自治区", "摩洛哥", "吃饭", "西安", "拉斐尔", "湖北", "Newyork", "洛杉矶", "拉萨", "晓东", "晓东", "晓东", "晓东", "晓东", "晓东", "晓东", "晓东", "晓东", "晓哈哈哈东", "晓东", "晓东", "晓东", "晓东", "晓东", "晓东", "晓东", "晓东", "晓东", "晓东", "晓东", "晓东", "晓东", "晓东", "晓东", "晓东", "晓东", "晓东", "晓东", "晓东"]
+    
+    let appNames = ["女Menu", "Animation", "Transition", "TableView", "CollectionView", "Indicator", "Alert", "UIView", "UITextfield", "UITableView", "Swift", "iOS", "Android"]
+    var appSearchHistories = ["Menu", "Animation", "Transition", "TableView"]
+    var appSearchResult = [String]()
+    var allApps = [String]()
+    
+    let tagView = TagListView()
+    
+    var array = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20"]
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.title = "上传(\(Int(photoCollectionView.contentOffset.x/self.view.bounds.width) + 1)/\(selectedImages.count))"
+        //self.title = "上传(\(Int(photoCollectionView.contentOffset.x/self.view.bounds.width) + 1)/\(selectedImages.count))"
+
         if selectedImages.count == 1 {
             rightButton.title = "上传"
+            self.title = "请填写应用和分类"
+        } else {
+            layOutTitleView()
         }
-
+        
         renderSelectImages(images: selectedImages)
         
-        layoutCollectionView()
+        layoutPhotoCollectionView()
+        layoutAppSearchCollectionView()
+        
+        addToolBarViewShadow()
+        //addNameCollectionViewShadow()
         
         nameTextField.delegate = self
         categoryTextField.delegate = self
         
         nameTextField.tag = 100
         categoryTextField.tag = 101
+        
+        nameTextField.restorationIdentifier = "app"
         
         nameTextField.tintColor = UIColor.black
         categoryTextField.tintColor = UIColor.black
@@ -68,6 +97,8 @@ class PhotoViewController: UIViewController, UICollectionViewDelegate, UICollect
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide(notice:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardChangeFrame(notice:)), name: NSNotification.Name.UIKeyboardWillChangeFrame, object: nil)
         
+        //当输入的内容有变化的时候
+        NotificationCenter.default.addObserver(self, selector: #selector(self.textFieldDidChange(textField:)), name: NSNotification.Name.UITextFieldTextDidChange, object: nil)
         
         tagScrollView.contentSize = CGSize(width: self.view.bounds.width * 2, height: 140)
         tagScrollView.showsHorizontalScrollIndicator = false
@@ -83,13 +114,61 @@ class PhotoViewController: UIViewController, UICollectionViewDelegate, UICollect
         //nameTextField.becomeFirstResponder()
     }
     
+    //添加上面的指示器
+    func layOutTitleView() {
+        pageControl = CHIPageControlChimayo(frame: CGRect(x: 0, y:0, width: 100, height: 20))
+        pageControl.numberOfPages = selectedImages.count
+        pageControl.radius = 4
+        pageControl.tintColor = .black
+        pageControl.currentPageTintColor = .green
+        pageControl.padding = 6
+        
+        //pageControl.progress = 0.5
+        
+        self.navigationItem.titleView = pageControl
+    }
+    //给 ToolBar 添加阴影
+    func addToolBarViewShadow() {
+        let shadowPath = UIBezierPath(rect: CGRect(x: 0, y: 4, width: toolBarView.frame.width * 1.2, height: toolBarView.frame.height))
+        
+        toolBarView.layer.shadowColor = UIColor.black .cgColor
+        toolBarView.layer.shadowOffset = CGSize(width: 0, height: -2)  //Here you control x and y
+        toolBarView.layer.shadowOpacity = 0.4
+        toolBarView.layer.shadowRadius = 4.0 //Here your control your blur
+        toolBarView.layer.masksToBounds =  false
+        toolBarView.layer.shadowPath = shadowPath.cgPath
+    }
+    
+    //给应用名称 CollectionView 添加阴影
+    func addNameCollectionViewShadow() {
+        let shadowPath = UIBezierPath(rect: CGRect(x: 0, y: 4, width: toolBarView.frame.width * 1.2, height: toolBarView.frame.height))
+        
+        searchCollectionView.layer.shadowColor = UIColor.black .cgColor
+        searchCollectionView.layer.shadowOffset = CGSize(width: 0, height: -2)  //Here you control x and y
+        searchCollectionView.layer.shadowOpacity = 0.4
+        searchCollectionView.layer.shadowRadius = 4.0 //Here your control your blur
+        searchCollectionView.layer.masksToBounds =  false
+        searchCollectionView.layer.shadowPath = shadowPath.cgPath
+    }
+    
+    //给分类 View 添加阴影
+    func addTagViewShadow() {
+        let shadowPath = UIBezierPath(rect: CGRect(x: 0, y: 4, width: toolBarView.frame.width * 1.2, height: toolBarView.frame.height))
+        
+        tagScrollView.layer.shadowColor = UIColor.black .cgColor
+        tagScrollView.layer.shadowOffset = CGSize(width: 0, height: -2)  //Here you control x and y
+        tagScrollView.layer.shadowOpacity = 0.4
+        tagScrollView.layer.shadowRadius = 4.0 //Here your control your blur
+        tagScrollView.layer.masksToBounds =  false
+        tagScrollView.layer.shadowPath = shadowPath.cgPath
+    }
+    
     func setTagView() {
         
-        let tagView = TagListView()
         tagView.frame = CGRect(x: 10, y: 10, width: self.view.bounds.width * 2 - 20, height: 120)
-        tagView.marginX = 14
-        tagView.marginY = 14
-        tagView.paddingX = 10
+        tagView.marginX = 10
+        tagView.marginY = 12
+        tagView.paddingX = 12
         tagView.paddingY = 10
         tagView.cornerRadius = 16
         
@@ -102,8 +181,10 @@ class PhotoViewController: UIViewController, UICollectionViewDelegate, UICollect
         }
         
         for singleTagView in tagView.tagViews {
-            singleTagView.backgroundColor = self.randomColor()
+            singleTagView.backgroundColor = UIColor.black
         }
+        
+        addTagViewShadow()
         
         tagScrollView.addSubview(tagView)
     }
@@ -143,12 +224,12 @@ class PhotoViewController: UIViewController, UICollectionViewDelegate, UICollect
     func showOrHideNameTableView() {
         if showOrHideNameView {
             UIView.animate(withDuration: 0.4, delay: 0, options: UIViewAnimationOptions.curveEaseInOut, animations: {
-                //self.tagScrollView.layer.opacity = 1
+                self.searchCollectionView.layer.opacity = 1
                 
             }, completion: nil)
         } else {
             UIView.animate(withDuration: 0.4, delay: 0, options: UIViewAnimationOptions.curveEaseInOut, animations: {
-                //self.tagScrollView.layer.opacity = 0
+                self.searchCollectionView.layer.opacity = 0
                 
             }, completion: nil)
         }
@@ -170,6 +251,33 @@ class PhotoViewController: UIViewController, UICollectionViewDelegate, UICollect
             showOrHideCategoryView = true
             self.showOrHideTagView()
         }
+    }
+    
+    //输入的内容有变化的时候时时检索
+    func textFieldDidChange(textField: UITextField) {
+        appSearchResult.removeAll()
+        
+        if nameTextField.text != "" {
+            isSearching = true
+            //大小写处理和间隔字符处理
+            
+            for appName in appNames {
+                if appName.contains(nameTextField.text!) {
+                    appSearchResult.append(appName)
+                    
+                }
+            }
+            
+            if appSearchResult.count == 0 {
+                appSearchResult.append("1000001")
+            }
+            
+        } else {
+            isSearching = false
+            
+        }
+        
+        searchCollectionView.reloadData()
     }
     
     func keyboardWillShow(notice : NSNotification) {
@@ -216,8 +324,8 @@ class PhotoViewController: UIViewController, UICollectionViewDelegate, UICollect
         keyBoardHeight = keyboardRect!.size.height
     }
     
-    //初始化 CollectionView
-    func layoutCollectionView() {
+    //初始化 PhotoCollectionView
+    func layoutPhotoCollectionView() {
         let layout = UICollectionViewFlowLayout()
         let cellWidth = self.view.bounds.width
         let cellHeight = self.view.bounds.height
@@ -234,8 +342,29 @@ class PhotoViewController: UIViewController, UICollectionViewDelegate, UICollect
         photoCollectionView!.dataSource = self
         photoCollectionView.isPagingEnabled = true
     }
+    
+    //初始化 PhotoCollectionView
+    func layoutAppSearchCollectionView() {
+        let layout = UICollectionViewFlowLayout()
+        let cellWidth = Double(self.view.bounds.width)
+        let cellHeight = 46.0
+        
+        layout.itemSize = CGSize(width: cellWidth, height: cellHeight)
+        //列间距,行间距,偏移
+        layout.minimumInteritemSpacing = 0
+        layout.minimumLineSpacing = 0
+        layout.scrollDirection = UICollectionViewScrollDirection.vertical
+        
+        searchCollectionView.collectionViewLayout = layout
+        searchCollectionView!.delegate = self
+        searchCollectionView!.dataSource = self
+        searchCollectionView.showsVerticalScrollIndicator = false
+    }
 
     @IBAction func closeButtonDidTouch(_ sender: UIBarButtonItem) {
+        nameTextField.resignFirstResponder()
+        categoryTextField.resignFirstResponder()
+        
         let title = "取消截图上传"
         let message = "取消后添加的内容将消失在地球上:（ \n真的取消上传吗？"
         
@@ -268,25 +397,98 @@ class PhotoViewController: UIViewController, UICollectionViewDelegate, UICollect
     
     //MARK :- UICollectionViewDelegate
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        //点击跳转到详情页
+        
+        if collectionView.restorationIdentifier == "appCollectionView" {
+            let cell = collectionView.cellForItem(at: indexPath) as! SearchCollectionViewCell
+            nameTextField.text = cell.appNameLable.text
+        }
         
     }
     
     //MARK :- UICollectionViewDataSource
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: kCellId, for: indexPath)
-        cell.tag = indexPath.row
-        if indexPath.row % 2 == 1 {
-            cell.backgroundColor = UIColor.purple
-        }else {
-            cell.backgroundColor = UIColor.black
+        if collectionView.restorationIdentifier == "appCollectionView" {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: kAppCellId, for: indexPath) as! SearchCollectionViewCell
+            cell.closeButton.isHidden = false
+            cell.appNameLable.text = ""
+            
+            if isSearching {
+                if appSearchResult.count == 1 && appSearchResult.first?.description == "1000001" {
+                    self.searchHeigtConstraint.constant = 0
+                    self.view.updateConstraints()
+                    
+                } else if appSearchResult.count <= 4 {
+                    self.searchHeigtConstraint.constant = CGFloat(self.appSearchResult.count * 47)
+                    self.view.updateConstraints()
+                    
+                    cell.appNameLable.text = self.appSearchResult[indexPath.row]
+                    cell.closeButton.isHidden = true
+                }
+                
+                
+            } else {
+                
+                allApps = appSearchHistories + appNames
+                
+                cell.appNameLable.text = allApps[indexPath.row]
+                
+                if indexPath.row > appSearchHistories.count - 1 {
+                    cell.closeButton.isHidden = true
+                }
+                cell.closeButton.tag = indexPath.row
+                
+                cell.closeButton.addTarget(self, action: #selector(self.searchHistoryColseButtonDidTouch(sender:)), for: UIControlEvents.touchUpInside)
+                
+                searchHeigtConstraint.constant = 200.0
+                self.view.updateConstraints()
+            }
+            
+            return cell
+            
+        } else {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: kPhotoCellId, for: indexPath) as! PhotoCollectionViewCell
+            cell.tag = indexPath.row
+            cell.photoImage.image = UIImage(named: array[indexPath.row])
+            
+            let photoTap = UITapGestureRecognizer(target: self, action: #selector(self.photoDidTap))
+            cell.photoImage.isUserInteractionEnabled = true
+            cell.photoImage.addGestureRecognizer(photoTap)
+            
+            return cell
+            
         }
-        return cell
+        
+    }
+    
+    //点击了图片，收起键盘
+    func photoDidTap() {
+        nameTextField.resignFirstResponder()
+        categoryTextField.resignFirstResponder()
+        
+    }
+    
+    //搜索历史记录清除
+    func searchHistoryColseButtonDidTouch(sender: UIButton) {
+        appSearchHistories.remove(at: sender.tag)
+        searchCollectionView.reloadData()
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return selectedImages.count
+        if collectionView.restorationIdentifier == "appCollectionView" {
+            if isSearching {
+                return appSearchResult.count
+                
+            } else {
+                return appNames.count + appSearchHistories.count
+                
+            }
+            
+        } else {
+            return selectedImages.count
+            
+        }
+        
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -295,7 +497,8 @@ class PhotoViewController: UIViewController, UICollectionViewDelegate, UICollect
     
     //滑动的时候设置标题，最后一张的时候设置右侧按钮为上传
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        self.title = "上传(\(Int(photoCollectionView.contentOffset.x/self.view.bounds.width) + 1)/\(selectedImages.count))"
+        
+        pageControl.set(progress: Int(photoCollectionView.contentOffset.x / self.view.bounds.width), animated: true)
         
         if Int(photoCollectionView.contentOffset.x/self.view.bounds.width) + 1 == selectedImages.count {
             rightButton.title = "上传"
@@ -370,6 +573,7 @@ class PhotoViewController: UIViewController, UICollectionViewDelegate, UICollect
     @IBAction func rightButtonDidTouch(_ sender: UIBarButtonItem) {
         if rightButton.title == "下一张" {
             photoCollectionView.contentOffset.x += self.view.bounds.width
+            pageControl.set(progress: Int(photoCollectionView.contentOffset.x / self.view.bounds.width), animated: true)
             
         }else {
             checkNet()
@@ -477,11 +681,6 @@ class PhotoViewController: UIViewController, UICollectionViewDelegate, UICollect
     func uploadImages() {
         print("来上传图片吧")
         
-    }
-    
-    //MARK: - 产生随机色
-    func randomColor() -> UIColor {
-        return UIColor(red: CGFloat(arc4random_uniform(256))/256.0, green: CGFloat(arc4random_uniform(128))/256.0+0.5, blue: CGFloat(arc4random_uniform(128))/256.0+0.5, alpha: 1)
     }
 
 }
