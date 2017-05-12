@@ -23,7 +23,9 @@ class PhotoViewController: UIViewController, UICollectionViewDelegate, UICollect
     @IBOutlet weak var categoryTextField: UITextField!
     @IBOutlet weak var tagScrollView: UIScrollView!
     @IBOutlet weak var searchCollectionView: UICollectionView!
-    @IBOutlet weak var searchHeigtConstraint: NSLayoutConstraint!
+    @IBOutlet weak var nameView: UIView!
+    @IBOutlet weak var nameViewHeigtConstraint: NSLayoutConstraint!
+    
     
     var selectedImages = [PHAsset]()
     var selectModel = [PhotoImageModel]()
@@ -71,7 +73,7 @@ class PhotoViewController: UIViewController, UICollectionViewDelegate, UICollect
         layoutAppSearchCollectionView()
         
         addToolBarViewShadow()
-        //addNameCollectionViewShadow()
+        addNameCollectionViewShadow()
         
         nameTextField.delegate = self
         categoryTextField.delegate = self
@@ -143,12 +145,12 @@ class PhotoViewController: UIViewController, UICollectionViewDelegate, UICollect
     func addNameCollectionViewShadow() {
         let shadowPath = UIBezierPath(rect: CGRect(x: 0, y: 4, width: toolBarView.frame.width * 1.2, height: toolBarView.frame.height))
         
-        searchCollectionView.layer.shadowColor = UIColor.black .cgColor
-        searchCollectionView.layer.shadowOffset = CGSize(width: 0, height: -2)  //Here you control x and y
-        searchCollectionView.layer.shadowOpacity = 0.4
-        searchCollectionView.layer.shadowRadius = 4.0 //Here your control your blur
-        searchCollectionView.layer.masksToBounds =  false
-        searchCollectionView.layer.shadowPath = shadowPath.cgPath
+        nameView.layer.shadowColor = UIColor.black .cgColor
+        nameView.layer.shadowOffset = CGSize(width: 0, height: -2)  //Here you control x and y
+        nameView.layer.shadowOpacity = 0.4
+        nameView.layer.shadowRadius = 4.0 //Here your control your blur
+        nameView.layer.masksToBounds =  false
+        nameView.layer.shadowPath = shadowPath.cgPath
     }
     
     //给分类 View 添加阴影
@@ -224,12 +226,12 @@ class PhotoViewController: UIViewController, UICollectionViewDelegate, UICollect
     func showOrHideNameTableView() {
         if showOrHideNameView {
             UIView.animate(withDuration: 0.4, delay: 0, options: UIViewAnimationOptions.curveEaseInOut, animations: {
-                self.searchCollectionView.layer.opacity = 1
+                self.nameView.layer.opacity = 1
                 
             }, completion: nil)
         } else {
             UIView.animate(withDuration: 0.4, delay: 0, options: UIViewAnimationOptions.curveEaseInOut, animations: {
-                self.searchCollectionView.layer.opacity = 0
+                self.nameView.layer.opacity = 0
                 
             }, completion: nil)
         }
@@ -414,11 +416,12 @@ class PhotoViewController: UIViewController, UICollectionViewDelegate, UICollect
             
             if isSearching {
                 if appSearchResult.count == 1 && appSearchResult.first?.description == "1000001" {
-                    self.searchHeigtConstraint.constant = 0
+                    self.nameViewHeigtConstraint.constant = 0
+                    
                     self.view.updateConstraints()
                     
                 } else if appSearchResult.count <= 4 {
-                    self.searchHeigtConstraint.constant = CGFloat(self.appSearchResult.count * 47)
+                    self.nameViewHeigtConstraint.constant = CGFloat(self.appSearchResult.count * 47)
                     self.view.updateConstraints()
                     
                     cell.appNameLable.text = self.appSearchResult[indexPath.row]
@@ -439,7 +442,7 @@ class PhotoViewController: UIViewController, UICollectionViewDelegate, UICollect
                 
                 cell.closeButton.addTarget(self, action: #selector(self.searchHistoryColseButtonDidTouch(sender:)), for: UIControlEvents.touchUpInside)
                 
-                searchHeigtConstraint.constant = 200.0
+                nameViewHeigtConstraint.constant = 200.0
                 self.view.updateConstraints()
             }
             
