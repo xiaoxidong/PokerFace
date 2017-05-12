@@ -9,7 +9,7 @@
 import UIKit
 
 class SelfCollectionViewCell: UICollectionViewCell {
-    @IBOutlet weak var selfImage: UIImageView!
     @IBOutlet weak var selfLabel: UILabel!
+    @IBOutlet weak var selfImage: ShadowImageView!
     
 }

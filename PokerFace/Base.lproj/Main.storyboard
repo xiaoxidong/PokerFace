@@ -403,9 +403,9 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="P4z-xX-eCr">
-                                <rect key="frame" x="10" y="0.0" width="355" height="603"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="K1O-5x-mKG">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="K1O-5x-mKG">
                                     <size key="itemSize" width="140" height="162"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
@@ -419,41 +419,42 @@
                                             <rect key="frame" x="0.0" y="0.0" width="140" height="162"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="VEg-aU-1bR">
-                                                    <rect key="frame" x="0.0" y="0.0" width="140" height="142"/>
-                                                    <color key="backgroundColor" red="0.93725490570000003" green="0.93725490570000003" blue="0.95686274770000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cXg-RO-H1U">
-                                                    <rect key="frame" x="0.0" y="142" width="140" height="20"/>
+                                                    <rect key="frame" x="0.0" y="122" width="140" height="40"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <nil key="textColor"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="87k-QF-mHy" customClass="ShadowImageView" customModule="PokerFace" customModuleProvider="target">
+                                                    <rect key="frame" x="0.0" y="0.0" width="140" height="122"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                </view>
                                             </subviews>
                                         </view>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstAttribute="bottom" secondItem="VEg-aU-1bR" secondAttribute="bottom" constant="20" id="6wH-Ah-BKb"/>
+                                            <constraint firstItem="87k-QF-mHy" firstAttribute="top" secondItem="k2Q-Qn-cK1" secondAttribute="top" id="2w0-Rg-eoI"/>
                                             <constraint firstItem="cXg-RO-H1U" firstAttribute="leading" secondItem="k2Q-Qn-cK1" secondAttribute="leading" id="8CM-mE-0oB"/>
-                                            <constraint firstAttribute="trailing" secondItem="VEg-aU-1bR" secondAttribute="trailing" id="AaU-8T-PC9"/>
-                                            <constraint firstItem="VEg-aU-1bR" firstAttribute="top" secondItem="k2Q-Qn-cK1" secondAttribute="top" id="If0-Cd-DQa"/>
+                                            <constraint firstItem="cXg-RO-H1U" firstAttribute="top" secondItem="87k-QF-mHy" secondAttribute="bottom" id="8KB-lL-xjC"/>
                                             <constraint firstAttribute="bottom" secondItem="cXg-RO-H1U" secondAttribute="bottom" id="LNb-WA-jbK"/>
-                                            <constraint firstItem="cXg-RO-H1U" firstAttribute="top" secondItem="VEg-aU-1bR" secondAttribute="bottom" id="TAz-Oe-ClP"/>
                                             <constraint firstAttribute="trailing" secondItem="cXg-RO-H1U" secondAttribute="trailing" id="c2Q-p6-3qz"/>
-                                            <constraint firstItem="VEg-aU-1bR" firstAttribute="leading" secondItem="k2Q-Qn-cK1" secondAttribute="leading" id="xty-vA-ZQU"/>
+                                            <constraint firstAttribute="trailing" secondItem="87k-QF-mHy" secondAttribute="trailing" id="k2Z-gd-lM8"/>
+                                            <constraint firstItem="87k-QF-mHy" firstAttribute="leading" secondItem="k2Q-Qn-cK1" secondAttribute="leading" id="qsl-D0-mde"/>
+                                            <constraint firstAttribute="bottom" secondItem="87k-QF-mHy" secondAttribute="bottom" constant="40" id="rJG-J7-eqk"/>
                                         </constraints>
                                         <connections>
-                                            <outlet property="selfImage" destination="VEg-aU-1bR" id="ZsQ-PP-hVt"/>
+                                            <outlet property="selfImage" destination="87k-QF-mHy" id="uxT-7Q-L7U"/>
                                             <outlet property="selfLabel" destination="cXg-RO-H1U" id="D9I-u7-4Kr"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="P4z-xX-eCr" firstAttribute="top" secondItem="kaP-zc-pv0" secondAttribute="bottom" id="4Xe-cl-Cd2"/>
-                            <constraint firstAttribute="trailing" secondItem="P4z-xX-eCr" secondAttribute="trailing" constant="10" id="89Y-dY-2fl"/>
-                            <constraint firstItem="P4z-xX-eCr" firstAttribute="leading" secondItem="CCK-jc-2ff" secondAttribute="leading" constant="10" id="UR3-8B-SRq"/>
+                            <constraint firstAttribute="trailing" secondItem="P4z-xX-eCr" secondAttribute="trailing" id="89Y-dY-2fl"/>
+                            <constraint firstItem="P4z-xX-eCr" firstAttribute="leading" secondItem="CCK-jc-2ff" secondAttribute="leading" id="UR3-8B-SRq"/>
                             <constraint firstItem="Twt-gc-mYz" firstAttribute="top" secondItem="P4z-xX-eCr" secondAttribute="bottom" id="XmQ-6G-F7S"/>
                         </constraints>
                     </view>
@@ -479,7 +480,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8m1-N6-iLm" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="670" y="-615"/>
+            <point key="canvasLocation" x="669.60000000000002" y="-615.74212893553226"/>
         </scene>
         <!--Collection View Controller-->
         <scene sceneID="P4v-Sx-R9O">

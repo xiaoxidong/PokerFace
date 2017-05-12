@@ -16,6 +16,9 @@ class SelfViewController: BasicViewController, UICollectionViewDelegate, UIColle
     let headerIdentifier = "CollectionReusableViewHeader"
     
     var type = 0
+    var headLabel = UILabel()
+    
+    var array = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,18 +45,20 @@ class SelfViewController: BasicViewController, UICollectionViewDelegate, UIColle
     //初始化 CollectionView
     func layoutSelfCollectionView() {
         let layout = UICollectionViewFlowLayout()
-        let itemWidth = (selfCollectionView.frame.width + 20)/3
-        let itemHeight = itemWidth * self.view.bounds.height / self.view.bounds.width + 20
+        let itemWidth = (self.view.bounds.width - 30)/3
+        let itemHeight = itemWidth * self.view.bounds.height / self.view.bounds.width + 40
         
         layout.itemSize = CGSize(width:itemWidth, height:itemHeight)
         //列间距,行间距,偏移
         layout.minimumInteritemSpacing = 0
         layout.minimumLineSpacing = 10
-        // layout.sectionInset = UIEdgeInsetsMake(5, 5, 5, 5)
         layout.headerReferenceSize = CGSize(width: self.view.bounds.width, height: 60)
+        //layout.sectionInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
+        
+        selfCollectionView.contentInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
+        selfCollectionView.collectionViewLayout = layout
         
         selfCollectionView.showsVerticalScrollIndicator = false
-        selfCollectionView.collectionViewLayout = layout
         selfCollectionView!.delegate = self
         selfCollectionView!.dataSource = self
         
@@ -84,8 +89,14 @@ class SelfViewController: BasicViewController, UICollectionViewDelegate, UIColle
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: selfCellId, for: indexPath) as!SelfCollectionViewCell
         
-        cell.selfImage.layer.cornerRadius = 2
         cell.selfLabel.text = "Airbnb"
+        cell.selfImage.image = UIImage(named: array[indexPath.row])
+        cell.selfImage.contentMode = UIViewContentMode.scaleAspectFit
+        cell.selfImage.imageCornerRaidus = 2
+        cell.selfImage.shadowRadiusOffSetPercentage = 1
+        cell.selfImage.shadowAlpha = 1
+        
+       // cell.selfImage.shadowOffSetByY = 2
         
         return cell
         
@@ -93,9 +104,9 @@ class SelfViewController: BasicViewController, UICollectionViewDelegate, UIColle
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if section == 0 {
-            return 4
+            return 8
         } else {
-            return 6
+            return 10
         }
     }
     
@@ -104,25 +115,29 @@ class SelfViewController: BasicViewController, UICollectionViewDelegate, UIColle
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        var reusableview: SelfCollectionReusableView!
+        var reusableview: SelfCollectionReusableView! = nil
         
         if kind == UICollectionElementKindSectionHeader {
             reusableview = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: headerIdentifier, for: indexPath) as! SelfCollectionReusableView
             
         }
         
-        let label = UILabel(frame: CGRect(x: 0, y: 20, width: 400, height: 30))
-        reusableview.addSubview(label)
+        headLabel = UILabel(frame: CGRect(x: 0, y: 20, width: 400, height: 30))
+        headLabel.textColor = UIColor.white
+        headLabel.text = ""
         
         if indexPath.section == 0 {
-            label.text = "我的上传"
+            headLabel.text = "我的上传"
         } else {
-            label.text = "我的收藏"
+            headLabel.text = "我的收藏"
         }
-
+        
+        reusableview.addSubview(headLabel)
         
         return reusableview
     }
+    
+    
     
     func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         let destination = segue.destination

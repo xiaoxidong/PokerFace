@@ -153,7 +153,7 @@ class PhotoViewController: UIViewController, UICollectionViewDelegate, UICollect
     
     //给分类 View 添加阴影
     func addTagViewShadow() {
-        let shadowPath = UIBezierPath(rect: CGRect(x: 0, y: 4, width: toolBarView.frame.width * 1.2, height: toolBarView.frame.height))
+        let shadowPath = UIBezierPath(rect: CGRect(x: 0, y: 4, width: tagScrollView.contentSize.width * 1.2, height: toolBarView.frame.height))
         
         tagScrollView.layer.shadowColor = UIColor.black .cgColor
         tagScrollView.layer.shadowOffset = CGSize(width: 0, height: -2)  //Here you control x and y
