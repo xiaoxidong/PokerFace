@@ -575,8 +575,11 @@ class PhotoViewController: UIViewController, UICollectionViewDelegate, UICollect
     //右侧按钮点击事件
     @IBAction func rightButtonDidTouch(_ sender: UIBarButtonItem) {
         if rightButton.title == "下一张" {
-            photoCollectionView.contentOffset.x += self.view.bounds.width
-            pageControl.set(progress: Int(photoCollectionView.contentOffset.x / self.view.bounds.width), animated: true)
+            UIView.animate(withDuration: 0.4, delay: 0, options: UIViewAnimationOptions.curveEaseInOut, animations: {
+                self.photoCollectionView.contentOffset.x += self.view.bounds.width
+                self.pageControl.set(progress: Int(self.photoCollectionView.contentOffset.x / self.view.bounds.width), animated: true)
+            }, completion: nil)
+            
             
         }else {
             checkNet()

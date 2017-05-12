@@ -115,25 +115,35 @@ class SelfViewController: BasicViewController, UICollectionViewDelegate, UIColle
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        var reusableview: SelfCollectionReusableView! = nil
+        var reusableview: SelfCollectionReusableView!
         
         if kind == UICollectionElementKindSectionHeader {
             reusableview = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: headerIdentifier, for: indexPath) as! SelfCollectionReusableView
             
         }
+    
         
         headLabel = UILabel(frame: CGRect(x: 0, y: 20, width: 400, height: 30))
         headLabel.textColor = UIColor.white
-        headLabel.text = ""
-        
-        if indexPath.section == 0 {
-            headLabel.text = "我的上传"
+
+        if reusableview.subviews.count == 1 {
+            let label = reusableview.subviews.first as! UILabel
+            
+            if indexPath.section == 0 {
+                label.text = "我的上传"
+            } else {
+                label.text = "我的收藏"
+            }
         } else {
-            headLabel.text = "我的收藏"
+            if indexPath.section == 0 {
+                headLabel.text = "我的上传"
+            } else {
+                headLabel.text = "我的收藏"
+            }
+            
+            reusableview.addSubview(headLabel)
         }
-        
-        reusableview.addSubview(headLabel)
-        
+
         return reusableview
     }
     
