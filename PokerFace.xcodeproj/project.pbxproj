@@ -16,6 +16,7 @@
 		4E400E241EADF969008EE1D9 /* SelectView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4E400E231EADF969008EE1D9 /* SelectView.xib */; };
 		4E400E261EAE02D3008EE1D9 /* SelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E400E251EAE02D3008EE1D9 /* SelectView.swift */; };
 		4E4EC9F51EC1F22C00BF8060 /* ShadowImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4EC9F41EC1F22C00BF8060 /* ShadowImageView.swift */; };
+		4E535E271F10B21C00F08333 /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E535E261F10B21C00F08333 /* Network.swift */; };
 		4E67F82D1EB21263005AC112 /* SelectPhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E67F82C1EB21263005AC112 /* SelectPhotoCollectionViewCell.swift */; };
 		4E6A2C001E966213008208F8 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E6A2BFF1E966213008208F8 /* HomeViewController.swift */; };
 		4E6A2C021E966258008208F8 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E6A2C011E966258008208F8 /* DetailViewController.swift */; };
@@ -57,6 +58,7 @@
 		4E95D71D1EAF555F0034D627 /* BasicViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E95D71C1EAF555F0034D627 /* BasicViewController.swift */; };
 		4EBE78A11EC42FE800C99450 /* SearchCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBE78A01EC42FE800C99450 /* SearchCollectionViewCell.swift */; };
 		4EBE78A31EC44C9700C99450 /* PhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBE78A21EC44C9700C99450 /* PhotoCollectionViewCell.swift */; };
+		4EBE78AC1EC5B5D500C99450 /* HWBouncyLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EBE78AB1EC5B5D500C99450 /* HWBouncyLayout.m */; };
 		4ECCC1091EB5F584004B5DF3 /* DetailMoreView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4ECCC1081EB5F584004B5DF3 /* DetailMoreView.xib */; };
 		4ECCC10B1EB5F5AB004B5DF3 /* ShareView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4ECCC10A1EB5F5AB004B5DF3 /* ShareView.xib */; };
 		4ECCC10D1EB5F5BE004B5DF3 /* SaveView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4ECCC10C1EB5F5BE004B5DF3 /* SaveView.xib */; };
@@ -123,6 +125,7 @@
 		4E400E231EADF969008EE1D9 /* SelectView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SelectView.xib; sourceTree = "<group>"; };
 		4E400E251EAE02D3008EE1D9 /* SelectView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectView.swift; sourceTree = "<group>"; };
 		4E4EC9F41EC1F22C00BF8060 /* ShadowImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShadowImageView.swift; sourceTree = "<group>"; };
+		4E535E261F10B21C00F08333 /* Network.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
 		4E67F82C1EB21263005AC112 /* SelectPhotoCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectPhotoCollectionViewCell.swift; sourceTree = "<group>"; };
 		4E6A2BFF1E966213008208F8 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		4E6A2C011E966258008208F8 /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
@@ -164,6 +167,9 @@
 		4E95D71C1EAF555F0034D627 /* BasicViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicViewController.swift; sourceTree = "<group>"; };
 		4EBE78A01EC42FE800C99450 /* SearchCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchCollectionViewCell.swift; sourceTree = "<group>"; };
 		4EBE78A21EC44C9700C99450 /* PhotoCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoCollectionViewCell.swift; sourceTree = "<group>"; };
+		4EBE78A81EC5B0CE00C99450 /* PokerFace-Briding-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PokerFace-Briding-Header.h"; sourceTree = "<group>"; };
+		4EBE78AA1EC5B5D500C99450 /* HWBouncyLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HWBouncyLayout.h; sourceTree = "<group>"; };
+		4EBE78AB1EC5B5D500C99450 /* HWBouncyLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HWBouncyLayout.m; sourceTree = "<group>"; };
 		4ECCC1081EB5F584004B5DF3 /* DetailMoreView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DetailMoreView.xib; sourceTree = "<group>"; };
 		4ECCC10A1EB5F5AB004B5DF3 /* ShareView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShareView.xib; sourceTree = "<group>"; };
 		4ECCC10C1EB5F5BE004B5DF3 /* SaveView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SaveView.xib; sourceTree = "<group>"; };
@@ -274,6 +280,7 @@
 				4E28F56C1EB49A7C002F4F64 /* More */,
 				4E28F56D1EB49A87002F4F64 /* StoryBoard */,
 				4ECCC1181EB82AEB004B5DF3 /* Banner */,
+				4EBE78A91EC5B5D500C99450 /* BouncyLayoutOC */,
 				4ECCC12F1EB96D0F004B5DF3 /* CKWaveCollectionViewAnimator */,
 				4E4EC9F31EC1F22C00BF8060 /* ShadowImageView */,
 				4E797A301EB073A300CF76AC /* imagePicker */,
@@ -304,6 +311,7 @@
 			isa = PBXGroup;
 			children = (
 				4E6A2BFF1E966213008208F8 /* HomeViewController.swift */,
+				4E535E261F10B21C00F08333 /* Network.swift */,
 				4E95D71A1EAF01B90034D627 /* HomeCollectionViewCell.swift */,
 				4E400E251EAE02D3008EE1D9 /* SelectView.swift */,
 				4ECCC1291EB96BED004B5DF3 /* FirstHomeCollectionViewController.swift */,
@@ -401,6 +409,7 @@
 				4E95D71C1EAF555F0034D627 /* BasicViewController.swift */,
 				4ECCC1141EB8299A004B5DF3 /* CustomBannerColors.swift */,
 				4ECCC1121EB82661004B5DF3 /* WifiOrCellular.swift */,
+				4EBE78A81EC5B0CE00C99450 /* PokerFace-Briding-Header.h */,
 			);
 			name = More;
 			sourceTree = "<group>";
@@ -451,6 +460,15 @@
 			);
 			name = imagePicker;
 			path = core;
+			sourceTree = "<group>";
+		};
+		4EBE78A91EC5B5D500C99450 /* BouncyLayoutOC */ = {
+			isa = PBXGroup;
+			children = (
+				4EBE78AA1EC5B5D500C99450 /* HWBouncyLayout.h */,
+				4EBE78AB1EC5B5D500C99450 /* HWBouncyLayout.m */,
+			);
+			path = BouncyLayoutOC;
 			sourceTree = "<group>";
 		};
 		4ECCC1181EB82AEB004B5DF3 /* Banner */ = {
@@ -779,6 +797,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4E535E271F10B21C00F08333 /* Network.swift in Sources */,
 				4E400E261EAE02D3008EE1D9 /* SelectView.swift in Sources */,
 				4E797A501EB073A300CF76AC /* PhotoPickerController.swift in Sources */,
 				4E6A2C061E96629A008208F8 /* SearchViewController.swift in Sources */,
@@ -835,6 +854,7 @@
 				4E797A561EB073A300CF76AC /* UIImage+Extension.swift in Sources */,
 				4E7EB94D1EB2FC630042E7CC /* SelfCollectionViewCell.swift in Sources */,
 				4E7EB9451EB2C3760042E7CC /* AppCollectionViewCell.swift in Sources */,
+				4EBE78AC1EC5B5D500C99450 /* HWBouncyLayout.m in Sources */,
 				4E6A2C001E966213008208F8 /* HomeViewController.swift in Sources */,
 				4ECCC12A1EB96BED004B5DF3 /* FirstHomeCollectionViewController.swift in Sources */,
 				4E797A521EB073A300CF76AC /* PhotoPreviewCell.swift in Sources */,
@@ -1003,6 +1023,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = productpoke.PokerFace;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "/Users/xiaodong/Downloads/Project/PokerFace/PokerFace/PokerFace-Briding-Header.h";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -1019,6 +1040,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = productpoke.PokerFace;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "/Users/xiaodong/Downloads/Project/PokerFace/PokerFace/PokerFace-Briding-Header.h";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;

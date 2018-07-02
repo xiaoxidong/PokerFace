@@ -230,7 +230,7 @@ class CollectionViewController: BasicViewController, UICollectionViewDelegate, U
     
     func reloadLeftButton() {
         if rightButton.tag == 0 {
-            leftButton.tintColor = UIColor(hex: "B9B9B9")
+            leftButton.tintColor = UIColor.red //UIColor(hex: "B9B9B9")
 
         } else {
             leftButton.tintColor = UIColor.black

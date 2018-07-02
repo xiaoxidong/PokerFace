@@ -83,7 +83,7 @@ class SearchViewController: BasicViewController, UICollectionViewDataSource, UIC
     
     //初始化 CollectionView
     func layoutSearchResultCollectionView() {
-        let layout = BouncyLayout()
+        let layout = UICollectionViewFlowLayout() //BouncyLayout()
         let cellWidth = (self.view.bounds.width - 10)/3
         let cellHeight = cellWidth * self.view.bounds.height / self.view.bounds.width
         

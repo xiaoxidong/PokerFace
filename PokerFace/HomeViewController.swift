@@ -8,14 +8,17 @@
 
 import UIKit
 import BouncyLayout
-import Sparrow
+//import Sparrow
 import Photos
 import BubbleTransition
 import ReachabilitySwift
 import EasyPull
 import DGElasticPullToRefresh
+import ELWaterFallLayout
+import DeviceKit
+import Alamofire
 
-class HomeViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate, PhotoPickerControllerDelegate, UIViewControllerTransitioningDelegate {
+class HomeViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate, PhotoPickerControllerDelegate, UIViewControllerTransitioningDelegate, UICollectionViewDelegateFlowLayout {
     @IBOutlet weak var titleButton: UIButton!
     @IBOutlet weak var searchButton: UIButton!
     @IBOutlet weak var homeCollectionView: UICollectionView!
@@ -29,35 +32,65 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
 
     let kCellId = "home"
     var hideStatusBar = true
-    var homeLayout = 1
+    var homeLayout = 3
     
     var homeSelectedImages = [PHAsset]()
     
     let transition = BubbleTransition()
     
     var page = 1
+    var collectionType = 0
+    
     var hideHomeStatusBar = false
     
-    let permissins: [SPRequestPermissionType] = [.photoLibrary]
+    //let permissins: [SPRequestPermissionType] = [.photoLibrary]
+    
+    var newLayout = UICollectionViewFlowLayout()
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         layoutCollectionView()
         addSearchButton()
         layoutLayer()
         
+        let net = Network()
+        //net.requestData()
+        
         //let banner = NotificationBanner(title: "Basic Warning Notification", subtitle: "Custom Warning Color", style: .warning, colors: CustomBannerColors())
         
         //banner.show()
+        
+        let device = Device()
+        if device == .iPhone7Plus {
+            //print("--------------------====================")
+        }
+        
+        if device.isPhone {
+            
+        }
+        
+        let groupOfAllowedDevices: [Device] = [.iPhone6, .iPhone6Plus, .iPhone6s, .iPhone6sPlus, .simulator(.iPhone6), .simulator(.iPhone6Plus), .simulator(.iPhone6s), .simulator(.iPhone6sPlus)]
+        
+        if device.isOneOf(groupOfAllowedDevices) {
+            // Do you action
+        }
         
         self.automaticallyAdjustsScrollViewInsets = false
         self.extendedLayoutIncludesOpaqueBars = true
         self.edgesForExtendedLayout = UIRectEdge.all
         
         
+        
+        let parameters = ["Usrid": 1]
+        
+        Alamofire.request("http://182.92.153.114:8088/pubblic/getImages", method: .post, parameters: parameters).responseJSON { (json) in
+            print(json)
+        }
+        
     }
+    
     
     override func loadView() {
         super.loadView()
@@ -168,17 +201,39 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
     
     //初始化 CollectionView
     func layoutCollectionView() {
-        let layout = BouncyLayout()
-        let cellWidth = (self.view.bounds.width - 10)/3
-        let cellHeight = cellWidth * self.view.bounds.height / self.view.bounds.width
+        if collectionType == 0 {
+            //iPhone 选项
+            let layout = UICollectionViewFlowLayout() //BouncyLayout()
+            let cellWidth = (self.view.bounds.width - 4)/3
+            let cellHeight = cellWidth * self.view.bounds.height / self.view.bounds.width
+            
+            layout.itemSize = CGSize(width:cellWidth, height:cellHeight)
+            //列间距,行间距,偏移
+            layout.minimumInteritemSpacing = 0
+            layout.minimumLineSpacing = 2
+            layout.sectionInset = UIEdgeInsetsMake(6, 0, 0, 0)
+            
+            homeCollectionView.collectionViewLayout = layout
+            
+        } else if collectionType == 1 {
+            //iPad 选项
+            let layout = BouncyLayout()
+            let cellWidth = (self.view.bounds.width - 5)/2
+            let cellHeight = cellWidth * self.view.bounds.height / self.view.bounds.width
+            
+            layout.itemSize = CGSize(width:cellWidth, height:cellHeight)
+            //列间距,行间距,偏移
+            layout.minimumInteritemSpacing = 5
+            layout.minimumLineSpacing = 5
+            layout.sectionInset = UIEdgeInsetsMake(6, 0, 0, 0)
+            
+            homeCollectionView.collectionViewLayout = layout
+
+        } else if collectionType == 2 {
+            //All 选项
+            
+        }
         
-        layout.itemSize = CGSize(width:cellWidth, height:cellHeight)
-        //列间距,行间距,偏移
-        layout.minimumInteritemSpacing = 5
-        layout.minimumLineSpacing = 5
-        layout.sectionInset = UIEdgeInsetsMake(6, 0, 0, 0)
-        
-        homeCollectionView.collectionViewLayout = layout
         homeCollectionView.contentInset = UIEdgeInsetsMake(64, 0, 0, 0)
         homeCollectionView!.delegate = self
         homeCollectionView!.dataSource = self
@@ -223,30 +278,127 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
         
     }
     
+    /*
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        var cellWidth = CGFloat()
+        var cellHeight = CGFloat()
+        
+        if collectionType == 0 {
+            //iPhone
+            if homeLayout == 3 {
+                //3列
+                cellWidth = (self.view.bounds.width - 10)/3
+                cellHeight = cellWidth * self.view.bounds.height / self.view.bounds.width
+                
+            } else if homeLayout == 2 {
+                //2列
+                cellWidth = (self.view.bounds.width - 5)/2
+                cellHeight = cellWidth * self.view.bounds.height / self.view.bounds.width
+                
+            } else {
+                //1列
+                cellWidth = self.view.bounds.width
+                cellHeight = cellWidth * self.view.bounds.height / self.view.bounds.width
+                
+            }
+        } else if collectionType == 1 {
+            //iPad
+            if homeLayout == 3 {
+                //3列
+                cellWidth = (self.view.bounds.width - 10)/3
+                cellHeight = cellWidth * self.view.bounds.height / self.view.bounds.width
+                
+            } else if homeLayout == 2 {
+                //2列
+                cellWidth = (self.view.bounds.width - 5)/2
+                cellHeight = cellWidth * self.view.bounds.height / self.view.bounds.width
+                
+            } else {
+                //1列
+                cellWidth = self.view.bounds.width
+                cellHeight = cellWidth * self.view.bounds.height / self.view.bounds.width
+                
+            }
+            
+        } else {
+            //All
+            if homeLayout == 3 {
+                //3列
+                cellWidth = (self.view.bounds.width - 10)/3
+                cellHeight = cellWidth * self.view.bounds.height / self.view.bounds.width
+                
+            } else if homeLayout == 2 {
+                //2列
+                cellWidth = (self.view.bounds.width - 5)/2
+                cellHeight = cellWidth * self.view.bounds.height / self.view.bounds.width
+                
+            } else {
+                //1列
+                cellWidth = self.view.bounds.width
+                cellHeight = cellWidth * self.view.bounds.height / self.view.bounds.width
+                
+            }
+        }
+        
+        return CGSize(width:cellWidth, height:cellHeight)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        
+        return 5.0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        
+        return 5.0
+    }
+    */
+    
     //MARK :- UICollectionViewDataSource
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: kCellId, for: indexPath) as! HomeCollectionViewCell
         
-        let doubleTap = UITapGestureRecognizer(target: self, action: #selector(self.cellDoubleTap))
-        doubleTap.numberOfTapsRequired = 2
-        cell.addGestureRecognizer(doubleTap)
+//        let doubleTap = UITapGestureRecognizer(target: self, action: #selector(self.cellDoubleTap))
+//        doubleTap.numberOfTapsRequired = 2
+//        cell.addGestureRecognizer(doubleTap)
         
         let singleTap = UITapGestureRecognizer(target: self, action: #selector(self.cellSingleTap))
         singleTap.numberOfTapsRequired = 1
         cell.addGestureRecognizer(singleTap)
         
-        singleTap.require(toFail: doubleTap)
-
+        //singleTap.require(toFail: doubleTap)
+        
         cell.imageView.contentMode = UIViewContentMode.top
         cell.imageView.contentMode = UIViewContentMode.scaleAspectFill
-        cell.imageView.image = UIImage.init(named: array[indexPath.row])
+        cell.imageView.image = UIImage(named: array[indexPath.row])
         
         return cell
     }
     
+    
+    
     func cellDoubleTap() {
-        if homeLayout == 1 {
+
+//        if homeLayout == 3 {
+//            homeLayout = 2
+//        } else if homeLayout == 2 {
+//            homeLayout = 1
+//        } else {
+//            homeLayout = 3
+//        }
+        
+//        if homeCollectionView.contentOffset.y < self.view.bounds.height {
+//            homeCollectionView.contentOffset.y = self.view.bounds.height * 2
+//        }
+       // homeCollectionView.reloadSections([0])
+        //homeCollectionView.reloadData()
+        //homeCollectionView.contentOffset.y = 0
+        //homeCollectionView.reloadItems(at: [IndexPath(item: 0, section: 0), IndexPath(item: 1, section: 0), IndexPath(item: 2, section: 0), IndexPath(item: 3, section: 0), IndexPath(item: 4, section: 0), IndexPath(item: 5, section: 0), IndexPath(item: 6, section: 0), IndexPath(item: 7, section: 0), IndexPath(item: 8, section: 0)])
+        
+        
+        
+        if homeLayout == 3 {
             let layout = UICollectionViewFlowLayout()
             let cellWidth = (self.view.bounds.width - 5)/2
             let cellHeight = cellWidth * self.view.bounds.height / self.view.bounds.width
@@ -259,6 +411,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
             
             UIView.animate(withDuration: 0.6, delay: 0, options: UIViewAnimationOptions.curveEaseInOut, animations: {
                 self.homeCollectionView.collectionViewLayout = layout
+                self.homeCollectionView.reloadData()
             }, completion: nil)
             
             homeLayout = 2
@@ -275,9 +428,10 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
             
             UIView.animate(withDuration: 0.6, delay: 0, options: UIViewAnimationOptions.curveEaseInOut, animations: {
                 self.homeCollectionView.collectionViewLayout = layout
+                self.homeCollectionView.reloadData()
             }, completion: nil)
             
-            homeLayout = 3
+            homeLayout = 1
         }else {
             let layout = UICollectionViewFlowLayout()
             let cellWidth = (self.view.bounds.width - 10)/3
@@ -291,9 +445,10 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
             
             UIView.animate(withDuration: 0.6, delay: 0, options: UIViewAnimationOptions.curveEaseInOut, animations: {
                 self.homeCollectionView.collectionViewLayout = layout
+                self.homeCollectionView.reloadData()
             }, completion: nil)
             
-            homeLayout = 1
+            homeLayout = 3
             
         }
         
@@ -380,9 +535,9 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
         }
         
         //获取相册权限
-        if !SPRequestPermission.isAllowPermission(.photoLibrary) {
-            SPRequestPermission.dialog.interactive.present(on: self, with: [.photoLibrary])
-        }
+//        if !SPRequestPermission.isAllowPermission(.photoLibrary) {
+//            SPRequestPermission.dialog.interactive.present(on: self, with: [.photoLibrary])
+//        }
         
         //选择图片
         let picker = PhotoPickerController(type: PageType.Screenshots)
